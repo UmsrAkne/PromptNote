@@ -27,38 +27,67 @@
 
         <ListBox Grid.Row="0" Grid.Column="0" />
 
-        <ListBox
-            Grid.Row="0"
-            Grid.Column="1"
-            HorizontalContentAlignment="Stretch"
-            AlternationCount="2"
-            ItemsSource="{Binding PromptsViewModel.Prompts}">
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:Prompt}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="150" />
-                        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="0" Grid.Column="1">
 
-                        <TextBlock Grid.Column="0" Text="{Binding Phrase}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Strength}" />
-                        <TextBlock Grid.Column="2" Text="{Binding Tags, Converter={StaticResource ListToStringConverter}}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+            <!--  擬似ヘッダー行  -->
+            <Grid Margin="7,2" DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
 
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Style.Triggers>
-                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                            <Setter Property="Background" Value="WhiteSmoke" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
+                <TextBlock Grid.Column="0" Text="テキスト" />
+                <Border
+                    Grid.Column="1"
+                    Padding="3,0"
+                    BorderBrush="Black"
+                    BorderThickness="1,0,0,0">
+                    <TextBlock Text="強度" />
+                </Border>
+
+                <Border
+                    Grid.Column="2"
+                    Padding="3,0"
+                    BorderBrush="Black"
+                    BorderThickness="1,0,0,0">
+                    <TextBlock Text="タグ" />
+                </Border>
+
+            </Grid>
+
+            <!--  プロンプトのリスト  -->
+            <ListBox
+                HorizontalContentAlignment="Stretch"
+                AlternationCount="2"
+                ItemsSource="{Binding PromptsViewModel.Prompts}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Prompt}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="150" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding Phrase}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Strength}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Tags, Converter={StaticResource ListToStringConverter}}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="WhiteSmoke" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </DockPanel>
 
     </Grid>
 </Window>
