@@ -25,7 +25,11 @@
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Row="0" Grid.Column="0" />
-        <ListBox Grid.Row="0" Grid.Column="1" />
+
+        <ListBox
+            Grid.Row="0"
+            Grid.Column="1"
+            ItemsSource="{Binding PromptsViewModel.Prompts}" />
 
     </Grid>
 </Window>
