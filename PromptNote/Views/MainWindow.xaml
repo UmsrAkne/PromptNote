@@ -19,6 +19,12 @@
             Key="Enter"
             Command="{Binding AddPromptCommand}"
             Modifiers="Control" />
+
+        <KeyBinding
+            Key="C"
+            Command="{Binding PromptsViewModel.GeneratePromptCommand}"
+            Modifiers="Control+Shift" />
+
     </Window.InputBindings>
 
     <Grid>
