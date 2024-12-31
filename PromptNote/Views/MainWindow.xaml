@@ -38,10 +38,13 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="150" />
                         </Grid.ColumnDefinitions>
+
                         <TextBlock Grid.Column="0" Text="{Binding Phrase}" />
                         <TextBlock Grid.Column="1" Text="{Binding Strength}" />
+                        <TextBlock Grid.Column="2" Text="{Binding Tags, Converter={StaticResource ListToStringConverter}}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
