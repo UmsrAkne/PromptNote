@@ -2,6 +2,7 @@
     x:Class="PromptNote.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:PromptNote.Views.Converters"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:sys="clr-namespace:System">
 
@@ -12,6 +13,8 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="{StaticResource BasicFontSize}" />
         </Style>
+
+        <converters:ListToStringConverter x:Key="ListToStringConverter" />
     </Application.Resources>
 
 </prism:PrismApplication>

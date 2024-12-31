@@ -4,14 +4,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:PromptNote.Models"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:viewModels="clr-namespace:PromptNote.ViewModels"
     Title="{Binding TextWrapper}"
-    Width="800"
+    Width="960"
     Height="600"
     d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
+
+    <Window.InputBindings>
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding AddPromptCommand}"
+            Modifiers="Control" />
+
+        <KeyBinding
+            Key="C"
+            Command="{Binding PromptsViewModel.GeneratePromptCommand}"
+            Modifiers="Control+Shift" />
+
+    </Window.InputBindings>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,7 +39,110 @@
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Row="0" Grid.Column="0" />
-        <ListBox Grid.Row="0" Grid.Column="1" />
+
+        <DockPanel Grid.Row="0" Grid.Column="1">
+
+            <!--  擬似ヘッダー行  -->
+            <Grid Margin="7,2" DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="テキスト" />
+                <Border
+                    Grid.Column="1"
+                    Padding="3,0"
+                    BorderBrush="Black"
+                    BorderThickness="1,0,0,0">
+                    <TextBlock Text="強度" />
+                </Border>
+
+                <Border
+                    Grid.Column="2"
+                    Padding="3,0"
+                    BorderBrush="Black"
+                    BorderThickness="1,0,0,0">
+                    <TextBlock Text="タグ" />
+                </Border>
+
+            </Grid>
+
+            <!--  プロンプトのリスト  -->
+            <ListBox
+                HorizontalContentAlignment="Stretch"
+                AlternationCount="2"
+                ItemsSource="{Binding PromptsViewModel.Prompts}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Prompt}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="150" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding Phrase}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Strength}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Tags, Converter={StaticResource ListToStringConverter}}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="WhiteSmoke" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </DockPanel>
+
+        <DockPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+
+            <StackPanel Margin="4" Orientation="Horizontal">
+
+                <TextBlock Text="Prompt :" />
+                <TextBox
+                    Width="250"
+                    Margin="3,0"
+                    Text="{Binding InputPrompt.Phrase}" />
+
+                <Border Width="0" Margin="6,0" />
+
+                <TextBlock Text="Strength :" />
+                <TextBox
+                    Width="40"
+                    Margin="3,0"
+                    Text="{Binding InputPrompt.Strength}" />
+
+                <Border Width="0" Margin="6,0" />
+
+                <TextBlock Text="Tags :" />
+                <TextBox
+                    Width="150"
+                    Margin="3,0"
+                    Text="{Binding InputPrompt.Tags, Converter={StaticResource ListToStringConverter}}" />
+
+                <Border Width="0" Margin="6,0" />
+            </StackPanel>
+
+            <Button
+                Width="140"
+                Margin="10,3"
+                HorizontalAlignment="Right"
+                Command="{Binding AddPromptCommand}">
+                <TextBlock Text="Add (Ctrl + Enter)" />
+            </Button>
+
+        </DockPanel>
 
     </Grid>
 </Window>
