@@ -89,5 +89,47 @@
             </ListBox>
         </DockPanel>
 
+        <DockPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+
+            <StackPanel Margin="4" Orientation="Horizontal">
+
+                <TextBlock Text="Prompt :" />
+                <TextBox
+                    Width="250"
+                    Margin="3,0"
+                    Text="{Binding InputPrompt.Phrase}" />
+
+                <Border Width="0" Margin="6,0" />
+
+                <TextBlock Text="Strength :" />
+                <TextBox
+                    Width="40"
+                    Margin="3,0"
+                    Text="{Binding InputPrompt.Strength}" />
+
+                <Border Width="0" Margin="6,0" />
+
+                <TextBlock Text="Tags :" />
+                <TextBox
+                    Width="150"
+                    Margin="3,0"
+                    Text="{Binding InputPrompt.Tags, Converter={StaticResource ListToStringConverter}}" />
+
+                <Border Width="0" Margin="6,0" />
+            </StackPanel>
+
+            <Button
+                Width="120"
+                Margin="10,3"
+                HorizontalAlignment="Right"
+                Command="{Binding AddPromptCommand}">
+                <TextBlock Text="Add" />
+            </Button>
+
+        </DockPanel>
+
     </Grid>
 </Window>

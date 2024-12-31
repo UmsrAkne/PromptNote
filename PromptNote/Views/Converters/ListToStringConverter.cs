@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace PromptNote.Views.Converters
@@ -18,7 +19,11 @@ namespace PromptNote.Views.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException(); // 双方向バインディングが不要なら未実装のままでOK
+            if (value is string input)
+            {
+                return input.Split(new[] { ", ", }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+            return new List<string>();
         }
     }
 }
