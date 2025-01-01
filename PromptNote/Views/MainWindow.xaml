@@ -2,6 +2,7 @@
     x:Class="PromptNote.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="clr-namespace:PromptNote.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -105,10 +106,27 @@
             <ListBox
                 HorizontalContentAlignment="Stretch"
                 AlternationCount="2"
-                ItemsSource="{Binding PromptsViewModel.Prompts}">
+                ItemsSource="{Binding PromptsViewModel.Prompts}"
+                SelectedIndex="{Binding PromptsViewModel.CursorManager.SelectedIndex}"
+                SelectedItem="{Binding PromptsViewModel.CursorManager.SelectedItem}">
+
+                <i:Interaction.Behaviors>
+                    <behaviors:ListBoxKeyDownBehavior />
+                </i:Interaction.Behaviors>
+
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:Prompt}">
                         <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ContainsOutput}" Value="false">
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="25" />
                                 <ColumnDefinition />
