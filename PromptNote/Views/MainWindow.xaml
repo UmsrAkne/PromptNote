@@ -45,14 +45,17 @@
             <!--  擬似ヘッダー行  -->
             <Grid Margin="7,2" DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25" />
                     <ColumnDefinition />
                     <ColumnDefinition Width="50" />
                     <ColumnDefinition Width="150" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="テキスト" />
+                <TextBlock Grid.Column="0" />
+                <TextBlock Grid.Column="1" Text="テキスト" />
+
                 <Border
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Padding="3,0"
                     BorderBrush="Black"
                     BorderThickness="1,0,0,0">
@@ -60,7 +63,7 @@
                 </Border>
 
                 <Border
-                    Grid.Column="2"
+                    Grid.Column="3"
                     Padding="3,0"
                     BorderBrush="Black"
                     BorderThickness="1,0,0,0">
@@ -78,14 +81,20 @@
                     <DataTemplate DataType="{x:Type models:Prompt}">
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25" />
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="50" />
                                 <ColumnDefinition Width="150" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Phrase}" />
-                            <TextBlock Grid.Column="1" Text="{Binding Strength}" />
-                            <TextBlock Grid.Column="2" Text="{Binding Tags, Converter={StaticResource ListToStringConverter}}" />
+                            <CheckBox
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding ContainsOutput}" />
+
+                            <TextBlock Grid.Column="1" Text="{Binding Phrase}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Strength}" />
+                            <TextBlock Grid.Column="3" Text="{Binding Tags, Converter={StaticResource ListToStringConverter}}" />
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

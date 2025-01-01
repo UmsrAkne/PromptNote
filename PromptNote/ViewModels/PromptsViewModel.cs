@@ -17,7 +17,7 @@ namespace PromptNote.ViewModels
         /// </summary>
         public DelegateCommand GeneratePromptCommand => new DelegateCommand(() =>
         {
-            var prs = Prompts.Select(p => p.Phrase);
+            var prs = Prompts.Where(p => p.ContainsOutput).Select(p => p.Phrase);
             Clipboard.SetText(string.Join(',', prs).Replace(",", ", "));
         });
     }

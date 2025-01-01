@@ -44,7 +44,7 @@ namespace PromptNote.ViewModels
                 { Phrase = "test2", Tags = new List<string>() { "Tag1", }, });
 
             PromptsViewModel.Prompts.Add(new Prompt()
-                { Phrase = "test3", Tags = new List<string>() { "Tag1", "Tag2", }, });
+                { Phrase = "test3", Tags = new List<string>() { "Tag1", "Tag2", }, ContainsOutput = false, });
 
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test4", });
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test5longLongLongLongLongLongLongText", });
