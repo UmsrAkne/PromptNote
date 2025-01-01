@@ -38,7 +38,11 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Row="0" Grid.Column="0" />
+        <ListBox
+            Grid.Row="0"
+            Grid.Column="0"
+            ItemsSource="{Binding PromptGroupViewModel.PromptGroups}"
+            SelectedItem="{Binding PromptGroupViewModel.SelectedItem}" />
 
         <DockPanel Grid.Row="0" Grid.Column="1">
 

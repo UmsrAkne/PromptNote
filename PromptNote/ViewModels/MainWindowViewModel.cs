@@ -14,6 +14,8 @@ namespace PromptNote.ViewModels
 
         public PromptsViewModel PromptsViewModel { get; set; } = new ();
 
+        public PromptGroupViewModel PromptGroupViewModel { get; set; } = new ();
+
         public Prompt InputPrompt { get => inputPrompt; set => SetProperty(ref inputPrompt, value); }
 
         public MainWindowViewModel()
