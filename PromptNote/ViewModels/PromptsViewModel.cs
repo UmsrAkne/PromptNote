@@ -10,7 +10,13 @@ namespace PromptNote.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class PromptsViewModel : BindableBase
     {
-        public ObservableCollection<Prompt> Prompts { get; set; } = new ();
+        private ObservableCollection<Prompt> prompts = new ();
+
+        public ObservableCollection<Prompt> Prompts
+        {
+            get => prompts;
+            set => SetProperty(ref prompts, value);
+        }
 
         /// <summary>
         /// このビューモデルが持つ Prompts から、実際に入力可能な形式のテキストを生成してクリップボードにコピーします。

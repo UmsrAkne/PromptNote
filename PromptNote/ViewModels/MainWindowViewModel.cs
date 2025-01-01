@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -37,6 +38,18 @@ namespace PromptNote.ViewModels
             InputPrompt = new Prompt();
         });
 
+        /// <summary>
+        /// PromptsViewModel.Prompts をアップデートします。<br/>
+        /// このコマンドはプロンプトグループのリストのセレクションが変更された時(イベントトリガー)に実行します。
+        /// </summary>
+        public DelegateCommand UpdatePromptsCommand => new DelegateCommand(() =>
+        {
+            if (PromptGroupViewModel.SelectedItem != null)
+            {
+                PromptsViewModel.Prompts = new ObservableCollection<Prompt>(PromptGroupViewModel.SelectedItem.Prompts);
+            }
+        });
+
         [Conditional("DEBUG")]
         private void SetDummies()
         {
@@ -53,7 +66,25 @@ namespace PromptNote.ViewModels
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test6", });
 
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() {Name = "Test Group1", });
-            PromptGroupViewModel.PromptGroups.Add(new PromptGroup() {Name = "Test Group2", });
+            PromptGroupViewModel.PromptGroups.Add(
+                new PromptGroup()
+                {
+                    Name = "Test Group2", Prompts = new List<Prompt>()
+                    {
+                        new ()
+                        {
+                            Phrase = "PromptGroup text1", Tags = new List<string>() { "Tag1", "Tag2", },
+                            ContainsOutput = false,
+                        },
+
+                        new ()
+                        {
+                            Phrase = "PromptGroup text2", Tags = new List<string>() { "Tag1", "Tag2", },
+                            ContainsOutput = false,
+                        },
+                    },
+                });
+
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() {Name = "Test Group3", });
         }
     }
