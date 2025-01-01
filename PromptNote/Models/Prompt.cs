@@ -1,13 +1,20 @@
 using System.Collections.Generic;
+using Prism.Mvvm;
 
 namespace PromptNote.Models
 {
-    public class Prompt
+    public class Prompt : BindableBase
     {
-        public string Phrase { get; set; } = string.Empty;
+        private string phrase = string.Empty;
+        private double strength = 1.0;
+        private bool containsOutput = true;
 
-        public double Strength { get; set; } = 1.0;
+        public string Phrase { get => phrase; set => SetProperty(ref phrase, value); }
+
+        public double Strength { get => strength; set => SetProperty(ref strength, value); }
 
         public List<string> Tags { get; set; } = new ();
+
+        public bool ContainsOutput { get => containsOutput; set => SetProperty(ref containsOutput, value); }
     }
 }
