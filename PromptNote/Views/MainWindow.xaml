@@ -109,6 +109,16 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:Prompt}">
                         <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ContainsOutput}" Value="false">
+                                            <Setter Property="Opacity" Value="0.3" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="25" />
                                 <ColumnDefinition />
