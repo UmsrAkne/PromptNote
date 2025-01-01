@@ -51,6 +51,10 @@ namespace PromptNote.ViewModels
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test4", });
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test5longLongLongLongLongLongLongText", });
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test6", });
+
+            PromptGroupViewModel.PromptGroups.Add(new PromptGroup() {Name = "Test Group1", });
+            PromptGroupViewModel.PromptGroups.Add(new PromptGroup() {Name = "Test Group2", });
+            PromptGroupViewModel.PromptGroups.Add(new PromptGroup() {Name = "Test Group3", });
         }
     }
 }
