@@ -25,6 +25,11 @@ namespace PromptNote.Models
                     continue;
                 }
 
+                if (parentheses.LastOrDefault() == '(')
+                {
+                    inParentheses += c;
+                }
+
                 if (c == ')')
                 {
                     if (parentheses.Count == 0)
@@ -37,6 +42,7 @@ namespace PromptNote.Models
                     if (parentheses.Count == 0)
                     {
                         prompt += TransformText(inParentheses);
+                        inParentheses = string.Empty;
                         continue;
                     }
                 }
