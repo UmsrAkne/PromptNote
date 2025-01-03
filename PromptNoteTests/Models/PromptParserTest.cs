@@ -7,6 +7,7 @@ namespace PromptNoteTests.Models
         [Test]
         [TestCase("test", new[] { "test", })]
         [TestCase("t1, t2", new[] { "t1", "t2", })]
+        [TestCase("t0, (t:1.5)", new[] { "t0", "t", })]
         public void ParseTest_Normal(string input, string[] expectedOutputs)
         {
             var actualOutput = PromptParser.Parse(input).Select(p => p.Phrase);
