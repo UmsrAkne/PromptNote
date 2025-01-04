@@ -16,5 +16,7 @@ namespace PromptNote.Models
         public List<string> Tags { get; set; } = new ();
 
         public bool ContainsOutput { get => containsOutput; set => SetProperty(ref containsOutput, value); }
+
+        public PromptType Type { get; set; } = PromptType.Normal;
     }
 }
