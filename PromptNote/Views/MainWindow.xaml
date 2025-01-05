@@ -212,6 +212,7 @@
                 <TextBox
                     Height="100"
                     AcceptsReturn="True"
+                    Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
                     VerticalScrollBarVisibility="Visible" />
 
                 <Border Height="0" Margin="0,2" />
@@ -219,6 +220,7 @@
                 <Button
                     Width="100"
                     HorizontalAlignment="Right"
+                    Command="{Binding MergePromptsCommand}"
                     Content="Merge" />
 
             </StackPanel>
