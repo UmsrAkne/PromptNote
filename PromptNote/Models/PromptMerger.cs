@@ -16,7 +16,7 @@ namespace PromptNote.Models
             for (var i = 0; i < additionalPrompts.Count; i++)
             {
                 Prompt bp = null;
-                if (basePrompts.Count >= i)
+                if (basePrompts.Count > i)
                 {
                     bp = basePrompts[i];
                 }
