@@ -14,6 +14,10 @@
             <Setter Property="FontSize" Value="{StaticResource BasicFontSize}" />
         </Style>
 
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="{StaticResource BasicFontSize}" />
+        </Style>
+
         <converters:ListToStringConverter x:Key="ListToStringConverter" />
     </Application.Resources>
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using Prism.Commands;
 using Prism.Mvvm;
 using PromptNote.Models;
@@ -10,6 +11,7 @@ namespace PromptNote.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private Prompt inputPrompt = new ();
+        private string inputText = string.Empty;
 
         public TextWrapper TextWrapper { get; set; } = new ();
 
@@ -18,6 +20,8 @@ namespace PromptNote.ViewModels
         public PromptGroupViewModel PromptGroupViewModel { get; set; } = new ();
 
         public Prompt InputPrompt { get => inputPrompt; set => SetProperty(ref inputPrompt, value); }
+
+        public string InputText { get => inputText; set => SetProperty(ref inputText, value); }
 
         public MainWindowViewModel()
         {
@@ -36,6 +40,22 @@ namespace PromptNote.ViewModels
 
             PromptsViewModel.Prompts.Add(InputPrompt);
             InputPrompt = new Prompt();
+        });
+
+        public DelegateCommand MergePromptsCommand => new DelegateCommand(() =>
+        {
+            if (string.IsNullOrWhiteSpace(InputText))
+            {
+                return;
+            }
+
+            var newList = PromptParser.Parse(InputText);
+            var oldList = PromptsViewModel.Prompts.ToList();
+
+            PromptsViewModel.Prompts
+                = new ObservableCollection<Prompt>(PromptMerger.MergePrompts(oldList, newList));
+
+            InputText = string.Empty;
         });
 
         /// <summary>
