@@ -158,12 +158,20 @@
             </ListBox>
         </DockPanel>
 
-        <DockPanel
+        <Grid
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="2">
 
-            <StackPanel Margin="4" Orientation="Horizontal">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="0"
+                Margin="4"
+                Orientation="Horizontal">
 
                 <TextBlock Text="Prompt :" />
                 <TextBox
@@ -191,14 +199,30 @@
             </StackPanel>
 
             <Button
+                Grid.Row="0"
                 Width="140"
-                Margin="10,3"
+                Margin="4,3"
                 HorizontalAlignment="Right"
                 Command="{Binding AddPromptCommand}">
                 <TextBlock Text="Add (Ctrl + Enter)" />
             </Button>
 
-        </DockPanel>
+            <StackPanel Grid.Row="1" Margin="2,10,2,2">
+
+                <TextBox
+                    Height="100"
+                    AcceptsReturn="True"
+                    VerticalScrollBarVisibility="Visible" />
+
+                <Border Height="0" Margin="0,2" />
+
+                <Button
+                    Width="100"
+                    HorizontalAlignment="Right"
+                    Content="Merge" />
+
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </Window>
