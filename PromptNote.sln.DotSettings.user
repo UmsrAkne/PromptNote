@@ -2,5 +2,10 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cf942116_002D2b54_002D4377_002Dba16_002Dcb0611063674/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptParserTest.ParseTest_Normal&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest.ParseTest_Normal&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest.ParseTest_Normal(["a"],["b"],["a", "b"])&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest.MergePromptsTest_Normal&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest.MergePromptsTest_Normal(["a"],["b"],["b", "a"])&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest.MergePromptsTest_Normal(["a", "b"],["c", "d"],["c", "a", "d", "b"])&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
