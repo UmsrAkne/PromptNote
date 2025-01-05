@@ -15,6 +15,15 @@ namespace PromptNoteTests.Models
 
         // 追加するリストのほうが要素数が多いケース
         [TestCase( new[] { "a", "b", }, new[] { "c", "d", "e", }, new[] { "c", "a", "d", "b", "e", })]
+
+        // 追加するリストのほうが要素数が少ないケース
+        [TestCase( new[] { "a", "b", }, new[] { "c", }, new[] { "c", "a", "b", })]
+
+        // ベースリストと追加リストが同数で、一部一致しているケース
+        [TestCase( new[] { "a", "b", }, new[] { "a", "c", }, new[] { "a", "c", "b", })]
+
+        // ベースリストと追加リストが同数で、順番が変化しているケース
+        [TestCase( new[] { "a", "b", "c", }, new[] { "a", "c", "b",}, new[] { "a", "c", "b", })]
         public void MergePromptsTest_Normal(string[] basePrompts, string[] additionalPrompts, string[] expectedPrompts)
         {
             var bps = basePrompts.Select(p => new Prompt() { Phrase = p, }).ToList();

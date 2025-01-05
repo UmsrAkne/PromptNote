@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PromptNote.Models
 {
@@ -13,16 +14,39 @@ namespace PromptNote.Models
         public static List<Prompt> MergePrompts(List<Prompt> basePrompts, List<Prompt> additionalPrompts)
         {
             var list = new List<Prompt>();
-            for (var i = 0; i < additionalPrompts.Count; i++)
+            var tempBases = basePrompts.ToList();
+            var tempAdditions = additionalPrompts.ToList();
+
+            var comparer = new PromptComparer();
+            for (var i = 0; i < tempBases.Count; i++)
+            {
+                if (tempAdditions.Contains(tempBases[i], comparer))
+                {
+                    tempBases[i] = null;
+                }
+            }
+
+            while (tempAdditions.Count <= tempBases.Count)
+            {
+                tempAdditions.Add(null);
+            }
+
+            for (var i = 0; i < tempAdditions.Count; i++)
             {
                 Prompt bp = null;
-                if (basePrompts.Count > i)
+                if (tempBases.Count > i)
                 {
-                    bp = basePrompts[i];
+                    bp = tempBases[i];
                 }
 
-                var ap = additionalPrompts[i];
+                var ap = tempAdditions[i];
                 list.Add(ap);
+
+                if (ap == null)
+                {
+                    list.Add(bp);
+                    continue;
+                }
 
                 if (bp == null || bp.Phrase == ap.Phrase)
                 {
@@ -32,7 +56,24 @@ namespace PromptNote.Models
                 list.Add(bp);
             }
 
-            return list;
+            return list.Where(p => p != null).ToList();
+        }
+    }
+
+    class PromptComparer : IEqualityComparer<Prompt>
+    {
+        public bool Equals(Prompt a, Prompt b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            // 比較基準: Id が同じ
+            return a.Phrase == b.Phrase;
+        }
+
+        public int GetHashCode(Prompt obj)
+        {
+            return obj.Phrase.GetHashCode();
         }
     }
 }
