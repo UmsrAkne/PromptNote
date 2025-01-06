@@ -8,6 +8,7 @@ namespace PromptNote.Models
         private string phrase = string.Empty;
         private double strength = 1.0;
         private bool containsOutput = true;
+        private bool isLora;
 
         public string Phrase { get => phrase; set => SetProperty(ref phrase, value); }
 
@@ -18,5 +19,7 @@ namespace PromptNote.Models
         public bool ContainsOutput { get => containsOutput; set => SetProperty(ref containsOutput, value); }
 
         public PromptType Type { get; set; } = PromptType.Normal;
+
+        public bool IsLora { get => isLora; set => SetProperty(ref isLora, value); }
     }
 }
