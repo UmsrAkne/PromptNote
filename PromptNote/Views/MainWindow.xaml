@@ -210,7 +210,7 @@
             <StackPanel Grid.Row="1" Margin="2,10,2,2">
 
                 <TextBox
-                    Height="100"
+                    MaxHeight="120"
                     AcceptsReturn="True"
                     Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
                     VerticalScrollBarVisibility="Visible" />
