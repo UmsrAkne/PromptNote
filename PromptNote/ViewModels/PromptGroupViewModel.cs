@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using PromptNote.Models;
+using PromptNote.Views;
 
 namespace PromptNote.ViewModels
 {
@@ -10,6 +12,12 @@ namespace PromptNote.ViewModels
     {
         private PromptGroup selectedItem;
         private string inputName;
+        private readonly IDialogService dialogService;
+
+        public PromptGroupViewModel(IDialogService dialogService)
+        {
+            this.dialogService = dialogService;
+        }
 
         public ObservableCollection<PromptGroup> PromptGroups { get; set; } = new ();
 
@@ -36,6 +44,23 @@ namespace PromptNote.ViewModels
         {
             PromptGroups.Add(new PromptGroup() { Name = InputName, });
             InputName = string.Empty;
+        });
+
+        public DelegateCommand ShowRenameDialogCommand => new DelegateCommand(() =>
+        {
+            if (SelectedItem == null)
+            {
+                return;
+            }
+
+            var param = new DialogParameters { { nameof(TextInputPageViewModel.Text), SelectedItem.Name }, };
+            dialogService.ShowDialog(nameof(TextInputPage), param, result =>
+            {
+                if (result.Result == ButtonResult.OK)
+                {
+                    SelectedItem.Name = result.Parameters.GetValue<string>(nameof(TextInputPageViewModel.Text));
+                }
+            });
         });
     }
 }

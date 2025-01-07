@@ -55,6 +55,10 @@
                         <i:InvokeCommandAction Command="{Binding UpdatePromptsCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+
+                <ListBox.InputBindings>
+                    <KeyBinding Key="F2" Command="{Binding PromptGroupViewModel.ShowRenameDialogCommand}" />
+                </ListBox.InputBindings>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:PromptGroup}">
                         <StackPanel Orientation="Horizontal">
