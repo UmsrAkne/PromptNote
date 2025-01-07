@@ -1,6 +1,7 @@
 ﻿using Prism.Ioc;
 using PromptNote.Views;
 using System.Windows;
+using PromptNote.ViewModels;
 
 namespace PromptNote
 {
@@ -16,6 +17,7 @@ namespace PromptNote
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterDialog<TextInputPage, TextInputPageViewModel>();
         }
     }
 }

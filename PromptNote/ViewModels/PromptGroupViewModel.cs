@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using PromptNote.Models;
 
 namespace PromptNote.ViewModels
@@ -10,6 +11,12 @@ namespace PromptNote.ViewModels
     {
         private PromptGroup selectedItem;
         private string inputName;
+        private readonly IDialogService dialogService;
+
+        public PromptGroupViewModel(IDialogService dialogService)
+        {
+            this.dialogService = dialogService;
+        }
 
         public ObservableCollection<PromptGroup> PromptGroups { get; set; } = new ();
 
