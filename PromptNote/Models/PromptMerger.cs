@@ -18,6 +18,13 @@ namespace PromptNote.Models
             var tempAdditions = additionalPrompts.ToList();
 
             var comparer = new PromptComparer();
+
+            // 追加側に存在しないプロンプトは出力に含まれないよう設定する
+            foreach (var p in tempBases.Except(tempAdditions, comparer))
+            {
+                p.ContainsOutput = false;
+            }
+
             for (var i = 0; i < tempBases.Count; i++)
             {
                 if (tempAdditions.Contains(tempBases[i], comparer))
