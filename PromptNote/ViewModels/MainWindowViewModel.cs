@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using Prism.Commands;
+using Prism.Ioc;
 using Prism.Mvvm;
 using PromptNote.Models;
 
@@ -17,14 +18,15 @@ namespace PromptNote.ViewModels
 
         public PromptsViewModel PromptsViewModel { get; set; } = new ();
 
-        public PromptGroupViewModel PromptGroupViewModel { get; set; } = new ();
+        public PromptGroupViewModel PromptGroupViewModel { get; set; }
 
         public Prompt InputPrompt { get => inputPrompt; set => SetProperty(ref inputPrompt, value); }
 
         public string InputText { get => inputText; set => SetProperty(ref inputText, value); }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IContainerProvider containerProvider)
         {
+            PromptGroupViewModel = containerProvider.Resolve<PromptGroupViewModel>();
             SetDummies();
         }
 

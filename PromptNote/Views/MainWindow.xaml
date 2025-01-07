@@ -40,35 +40,63 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <ListBox
-            Grid.Row="0"
-            Grid.Column="0"
-            AlternationCount="2"
-            ItemsSource="{Binding PromptGroupViewModel.PromptGroups}"
-            SelectedItem="{Binding PromptGroupViewModel.SelectedItem}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding UpdatePromptsCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:PromptGroup}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Style.Triggers>
-                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                            <Setter Property="Background" Value="WhiteSmoke" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
+            <ListBox
+                AlternationCount="2"
+                ItemsSource="{Binding PromptGroupViewModel.PromptGroups}"
+                SelectedItem="{Binding PromptGroupViewModel.SelectedItem}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding UpdatePromptsCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <ListBox.InputBindings>
+                    <KeyBinding Key="F2" Command="{Binding PromptGroupViewModel.ShowRenameDialogCommand}" />
+                </ListBox.InputBindings>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:PromptGroup}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="WhiteSmoke" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+
+            <Grid Grid.Row="1" Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Text="{Binding PromptGroupViewModel.InputName, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Button
+                    Grid.Column="1"
+                    Width="100"
+                    HorizontalAlignment="Right"
+                    Command="{Binding PromptGroupViewModel.AddGroupCommand}"
+                    Content="Add"
+                    DockPanel.Dock="Right"
+                    IsEnabled="{Binding PromptGroupViewModel.CanGroupAddition}" />
+            </Grid>
+
+        </Grid>
 
         <DockPanel Grid.Row="0" Grid.Column="1">
 

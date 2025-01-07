@@ -1,0 +1,53 @@
+<Page
+    x:Class="PromptNote.Views.TextInputPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:PromptNote.ViewModels"
+    Title="TextInputPage"
+    Width="400"
+    d:DataContext="{d:DesignInstance viewModels:TextInputPageViewModel}"
+    mc:Ignorable="d">
+
+    <Page.InputBindings>
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Control" />
+
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+    </Page.InputBindings>
+
+    <Grid Margin="3" FocusManager.FocusedElement="{Binding ElementName=TextBox}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox
+            x:Name="TextBox"
+            Grid.Row="0"
+            Margin="0,0,0,5"
+            Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+
+            <Button
+                Padding="40,0"
+                Command="{Binding ConfirmCommand}"
+                Content="OK (Ctrl + Enter)" />
+
+            <Border Width="0" Margin="5,0" />
+
+            <Button
+                Padding="10,0"
+                Command="{Binding CloseCommand}"
+                Content="Close (Esc)" />
+        </StackPanel>
+    </Grid>
+</Page>
