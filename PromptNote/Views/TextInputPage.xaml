@@ -9,6 +9,16 @@
     Width="400"
     d:DataContext="{d:DesignInstance viewModels:TextInputPageViewModel}"
     mc:Ignorable="d">
+
+    <Page.InputBindings>
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Control" />
+
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+    </Page.InputBindings>
+
     <Grid Margin="3" FocusManager.FocusedElement="{Binding ElementName=TextBox}">
 
         <Grid.RowDefinitions>
@@ -20,7 +30,7 @@
             x:Name="TextBox"
             Grid.Row="0"
             Margin="0,0,0,5"
-            Text="{Binding Text}" />
+            Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
 
         <StackPanel
             Grid.Row="1"
@@ -30,14 +40,14 @@
             <Button
                 Padding="40,0"
                 Command="{Binding ConfirmCommand}"
-                Content="OK" />
+                Content="OK (Ctrl + Enter)" />
 
             <Border Width="0" Margin="5,0" />
 
             <Button
                 Padding="10,0"
                 Command="{Binding CloseCommand}"
-                Content="Close" />
+                Content="Close (Esc)" />
         </StackPanel>
     </Grid>
 </Page>
