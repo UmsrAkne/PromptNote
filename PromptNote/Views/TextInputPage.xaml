@@ -9,7 +9,7 @@
     Width="400"
     d:DataContext="{d:DesignInstance viewModels:TextInputPageViewModel}"
     mc:Ignorable="d">
-    <Grid Margin="3">
+    <Grid Margin="3" FocusManager.FocusedElement="{Binding ElementName=TextBox}">
 
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -17,6 +17,7 @@
         </Grid.RowDefinitions>
 
         <TextBox
+            x:Name="TextBox"
             Grid.Row="0"
             Margin="0,0,0,5"
             Text="{Binding Text}" />

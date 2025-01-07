@@ -18,12 +18,14 @@ namespace PromptNote.ViewModels
 
         public DelegateCommand CloseCommand => new (() =>
         {
-            RequestClose?.Invoke(new DialogResult());
+            RequestClose?.Invoke(new DialogResult(ButtonResult.No));
         });
 
         public DelegateCommand ConfirmCommand => new (() =>
         {
-            RequestClose?.Invoke(new DialogResult(ButtonResult.Yes));
+            var result = new DialogResult(ButtonResult.OK);
+            result.Parameters.Add(nameof(Text), Text);
+            RequestClose?.Invoke(result);
         });
 
         public bool CanCloseDialog() => true;
@@ -34,6 +36,11 @@ namespace PromptNote.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
+            if (parameters.ContainsKey(nameof(Text)))
+            {
+                Text = parameters.GetValue<string>(nameof(Text));
+            }
+
         }
     }
 }

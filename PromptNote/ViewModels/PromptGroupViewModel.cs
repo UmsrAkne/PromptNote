@@ -3,6 +3,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using PromptNote.Models;
+using PromptNote.Views;
 
 namespace PromptNote.ViewModels
 {
@@ -43,6 +44,23 @@ namespace PromptNote.ViewModels
         {
             PromptGroups.Add(new PromptGroup() { Name = InputName, });
             InputName = string.Empty;
+        });
+
+        public DelegateCommand ShowRenameDialogCommand => new DelegateCommand(() =>
+        {
+            if (SelectedItem == null)
+            {
+                return;
+            }
+
+            var param = new DialogParameters { { nameof(TextInputPageViewModel.Text), SelectedItem.Name }, };
+            dialogService.ShowDialog(nameof(TextInputPage), param, result =>
+            {
+                if (result.Result == ButtonResult.OK)
+                {
+                    SelectedItem.Name = result.Parameters.GetValue<string>(nameof(TextInputPageViewModel.Text));
+                }
+            });
         });
     }
 }
