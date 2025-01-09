@@ -1,7 +1,7 @@
-﻿using Prism.Ioc;
-using PromptNote.Views;
-using System.Windows;
+﻿using System.Windows;
+using Prism.Ioc;
 using PromptNote.ViewModels;
+using PromptNote.Views;
 
 namespace PromptNote
 {

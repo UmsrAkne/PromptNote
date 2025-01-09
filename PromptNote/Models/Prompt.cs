@@ -14,7 +14,7 @@ namespace PromptNote.Models
 
         public double Strength { get => strength; set => SetProperty(ref strength, value); }
 
-        public List<string> Tags { get; set; } = new ();
+        public List<Tag> Tags { get; set; } = new ();
 
         public bool ContainsOutput { get => containsOutput; set => SetProperty(ref containsOutput, value); }
 

@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using PromptNote.ViewModels;
 using Microsoft.Xaml.Behaviors;
 using PromptNote.Models;
+using PromptNote.ViewModels;
 
 namespace PromptNote.Behaviors
 {
@@ -167,6 +167,7 @@ namespace PromptNote.Behaviors
                             items.Insert(index + 1, item);
                             listBox.SelectedIndex = index + 1;
                             listBox.SelectedItem = item;
+
                             // vm.ReIndex(items);
                         }
 
@@ -187,6 +188,7 @@ namespace PromptNote.Behaviors
                             items.Insert(index - 1, item);
                             listBox.SelectedIndex = index - 1;
                             listBox.SelectedItem = item;
+
                             // vm.ReIndex(items);
                         }
 
@@ -196,26 +198,23 @@ namespace PromptNote.Behaviors
                     vm.PromptsViewModel.CursorManager.MoveCursorUp();
                     break;
 
-                // case Key.N:
-                //     if (!isShiftPressed)
-                //     {
-                //         vm.CursorManager.MoveCursorToNextMark();
-                //     }
-                //     else
-                //     {
-                //         vm.CursorManager.MoveCursorToPrevMark();
-                //     }
-                //
-                //     break;
-
                 case Key.Delete:
-                    if (isControlPressed && listBox.SelectedIndex >= 0)
+                    if (listBox.SelectedIndex >= 0)
                     {
                         var index = listBox.SelectedIndex;
                         if (listBox.ItemsSource is ObservableCollection<Prompt> items)
                         {
                             items.RemoveAt(index);
-                            // vm.ReIndex(items);
+                            if (items.Count > 0)
+                            {
+                                if (index >= items.Count)
+                                {
+                                    index = items.Count - 1;
+                                }
+
+                                listBox.SelectedIndex = index;
+                                listBox.SelectedItem = items[index];
+                            }
                         }
                     }
 

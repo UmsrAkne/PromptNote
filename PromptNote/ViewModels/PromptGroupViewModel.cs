@@ -10,9 +10,9 @@ namespace PromptNote.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class PromptGroupViewModel : BindableBase
     {
+        private readonly IDialogService dialogService;
         private PromptGroup selectedItem;
         private string inputName;
-        private readonly IDialogService dialogService;
 
         public PromptGroupViewModel(IDialogService dialogService)
         {
