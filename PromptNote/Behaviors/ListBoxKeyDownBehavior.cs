@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using PromptNote.ViewModels;
 using Microsoft.Xaml.Behaviors;
 using PromptNote.Models;
+using PromptNote.ViewModels;
 
 namespace PromptNote.Behaviors
 {
@@ -167,6 +167,7 @@ namespace PromptNote.Behaviors
                             items.Insert(index + 1, item);
                             listBox.SelectedIndex = index + 1;
                             listBox.SelectedItem = item;
+
                             // vm.ReIndex(items);
                         }
 
@@ -187,6 +188,7 @@ namespace PromptNote.Behaviors
                             items.Insert(index - 1, item);
                             listBox.SelectedIndex = index - 1;
                             listBox.SelectedItem = item;
+
                             // vm.ReIndex(items);
                         }
 
@@ -195,18 +197,6 @@ namespace PromptNote.Behaviors
 
                     vm.PromptsViewModel.CursorManager.MoveCursorUp();
                     break;
-
-                // case Key.N:
-                //     if (!isShiftPressed)
-                //     {
-                //         vm.CursorManager.MoveCursorToNextMark();
-                //     }
-                //     else
-                //     {
-                //         vm.CursorManager.MoveCursorToPrevMark();
-                //     }
-                //
-                //     break;
 
                 case Key.Delete:
                     if (listBox.SelectedIndex >= 0)

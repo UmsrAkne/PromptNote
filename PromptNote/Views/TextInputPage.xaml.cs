@@ -1,8 +1,6 @@
-using System.Windows.Controls;
-
 namespace PromptNote.Views
 {
-    public partial class TextInputPage : Page
+    public partial class TextInputPage
     {
         public TextInputPage()
         {
