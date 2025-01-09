@@ -169,7 +169,26 @@
 
                             <TextBlock Grid.Column="1" Text="{Binding Phrase}" />
                             <TextBlock Grid.Column="2" Text="{Binding Strength}" />
-                            <TextBlock Grid.Column="3" Text="{Binding Tags, Converter={StaticResource ListToStringConverter}}" />
+                            <ListBox
+                                Grid.Column="3"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                ItemsSource="{Binding Tags}">
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type models:Tag}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Foreground="{Binding ColorName}" Text="{Binding Value}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

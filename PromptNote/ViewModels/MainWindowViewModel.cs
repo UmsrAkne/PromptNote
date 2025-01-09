@@ -91,10 +91,15 @@ namespace PromptNote.ViewModels
                 Phrase = "test3", Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
-
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test4", });
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test5longLongLongLongLongLongLongText", });
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test6", });
+
+            PromptsViewModel.Prompts.Add(new Prompt()
+            {
+                Phrase = "test7", Tags = new List<Tag>() { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
+                ContainsOutput = false,
+            });
 
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() {Name = "Test Group1", });
             PromptGroupViewModel.PromptGroups.Add(
