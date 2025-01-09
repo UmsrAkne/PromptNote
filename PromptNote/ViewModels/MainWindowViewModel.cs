@@ -78,10 +78,13 @@ namespace PromptNote.ViewModels
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test1", });
 
             PromptsViewModel.Prompts.Add(new Prompt()
-                { Phrase = "test2", Tags = new List<string>() { "Tag1", }, });
+                { Phrase = "test2", Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
 
             PromptsViewModel.Prompts.Add(new Prompt()
-                { Phrase = "test3", Tags = new List<string>() { "Tag1", "Tag2", }, ContainsOutput = false, });
+            {
+                Phrase = "test3", Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
+                ContainsOutput = false,
+            });
 
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test4", });
             PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test5longLongLongLongLongLongLongText", });
@@ -95,13 +98,13 @@ namespace PromptNote.ViewModels
                     {
                         new ()
                         {
-                            Phrase = "PromptGroup text1", Tags = new List<string>() { "Tag1", "Tag2", },
+                            Phrase = "PromptGroup text1", Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                             ContainsOutput = false,
                         },
 
                         new ()
                         {
-                            Phrase = "PromptGroup text2", Tags = new List<string>() { "Tag1", "Tag2", },
+                            Phrase = "PromptGroup text2", Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                             ContainsOutput = false,
                         },
                     },
