@@ -209,13 +209,22 @@ namespace PromptNote.Behaviors
                 //     break;
 
                 case Key.Delete:
-                    if (isControlPressed && listBox.SelectedIndex >= 0)
+                    if (listBox.SelectedIndex >= 0)
                     {
                         var index = listBox.SelectedIndex;
                         if (listBox.ItemsSource is ObservableCollection<Prompt> items)
                         {
                             items.RemoveAt(index);
-                            // vm.ReIndex(items);
+                            if (items.Count > 0)
+                            {
+                                if (index >= items.Count)
+                                {
+                                    index = items.Count - 1;
+                                }
+
+                                listBox.SelectedIndex = index;
+                                listBox.SelectedItem = items[index];
+                            }
                         }
                     }
 
