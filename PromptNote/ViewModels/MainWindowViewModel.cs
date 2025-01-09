@@ -24,6 +24,12 @@ namespace PromptNote.ViewModels
 
         public string InputText { get => inputText; set => SetProperty(ref inputText, value); }
 
+        public MainWindowViewModel()
+        {
+            PromptGroupViewModel = new PromptGroupViewModel(null);
+            SetDummies();
+        }
+
         public MainWindowViewModel(IContainerProvider containerProvider)
         {
             PromptGroupViewModel = containerProvider.Resolve<PromptGroupViewModel>();
