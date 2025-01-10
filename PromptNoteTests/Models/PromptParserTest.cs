@@ -15,5 +15,15 @@ namespace PromptNoteTests.Models
             var actualOutput = PromptParser.Parse(input).Select(p => p.Phrase);
             CollectionAssert.AreEqual(expectedOutputs, actualOutput);
         }
+
+        [TestCase(@"\(test\)", new[] { @"\(test\)", })] // 単一フレーズ。
+        [TestCase(@"\(t1\), \(t2\)", new[] { @"\(t1\)", @"\(t2\)", })] // 複数のフレーズ。
+        [TestCase(@"\(t0\), t", new[] { @"\(t0\)", "t", })] // 括弧付きと括弧なしのフレーズ
+        [TestCase(@"\(t1\), (t2:0.5), t3", new[] { @"\(t1\)", "t2", "t3", })] // エスケープ・通常括弧・括弧なし
+        public void ParseTest_With_Escape(string input, string[] expectedOutputs)
+        {
+            var actualOutput = PromptParser.Parse(input).Select(p => p.Phrase);
+            CollectionAssert.AreEqual(expectedOutputs, actualOutput);
+        }
     }
 }
