@@ -13,10 +13,33 @@ namespace PromptNote.Models
             var inParentheses = string.Empty;
             var prompt = string.Empty;
             var counter = 0;
+            var escape = false;
 
             foreach (var c in text)
             {
                 counter++;
+
+                if (escape)
+                {
+                    if (parentheses.Count > 0)
+                    {
+                        inParentheses += c;
+                    }
+                    else
+                    {
+                        prompt += c;
+                    }
+
+                    escape = false;
+                    continue;
+                }
+
+                if (c == '\\')
+                {
+                    escape = true; // 次の文字をエスケープとして処理する
+                    prompt += c;
+                    continue;
+                }
 
                 if (c == '(')
                 {
