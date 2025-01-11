@@ -33,7 +33,12 @@ namespace PromptNoteTests.Models
         {
             var actualOutput = PromptParser.Parse(input).ToList();
             CollectionAssert.AreEqual(expectedOutputs, actualOutput.Select(p => p.Phrase));
-            Assert.That(actualOutput.First().Strength, Is.EqualTo(expectedStrength));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualOutput.First().Strength, Is.EqualTo(expectedStrength));
+                Assert.That(actualOutput.First().Type, Is.EqualTo(PromptType.Lora));
+            });
         }
     }
 }

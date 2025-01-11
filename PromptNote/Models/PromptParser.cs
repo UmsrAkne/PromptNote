@@ -125,7 +125,7 @@ namespace PromptNote.Models
                 {
                     return new Prompt()
                     {
-                        Phrase = exceptedScore.Trim(), Strength = num, IsLora = true,
+                        Phrase = exceptedScore.Trim(), Strength = num, Type = PromptType.Lora,
                     };
                 }
             }
