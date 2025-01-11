@@ -112,7 +112,7 @@ namespace PromptNote.Models
                 return new Prompt() { Phrase = text, Strength = number, };
             }
 
-            var isLora = Regex.Match(prompt, @"<lora:[^:>]+:(\d+(\.\d+)?)>");
+            var isLora = Regex.Match(prompt, @"<lora:[^:>]+:(\d+(\.\d+)?)>", RegexOptions.IgnoreCase);
 
             if (isLora.Success)
             {
