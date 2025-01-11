@@ -26,8 +26,9 @@ namespace PromptNoteTests.Models
             CollectionAssert.AreEqual(expectedOutputs, actualOutput);
         }
 
-        [TestCase(@"<lora:test:1>", new[] { @"<lora:test:1>", }, 1.0)]
-        [TestCase(@"<lora:test:1.5>", new[] { @"<lora:test:1.5>", }, 1.5)]
+        [TestCase(@"<lora:test:1>", new[] { @"<lora:test>", }, 1.0)] // 通常フォーマット
+        [TestCase(@"<lora:test:1.5>", new[] { @"<lora:test>", }, 1.5)] // スコアを正しく認識できるか
+        [TestCase(@"<lora:11test:1.5>", new[] { @"<lora:11test>", }, 1.5)] // Lora の名前が数値から始まっても誤作動しないか
         public void ParseTest_Lora(string input, string[] expectedOutputs, double expectedStrength)
         {
             var actualOutput = PromptParser.Parse(input).ToList();
