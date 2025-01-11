@@ -9,5 +9,8 @@
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest.MergePromptsTest_Normal(["a", "b"],["c", "d"],["c", "a", "d", "b"])&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest.MergePromptsTest_Check_OutputFlags&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptParserTest.ParseTest_With_Escape&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptParserTest.ParseTest_Lora&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptParserTest.ParseTest_Lora("&amp;lt;lora:test:1&amp;gt;",["&amp;lt;lora:test:1&amp;gt;"],1.0d)&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptParserTest.ParseTest_Lora("&amp;lt;lora:test:1.5&amp;gt;",["&amp;lt;lora:test:1.5&amp;gt;"],1.5d)&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

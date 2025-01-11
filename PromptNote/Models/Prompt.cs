@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Prism.Mvvm;
 
@@ -8,7 +9,6 @@ namespace PromptNote.Models
         private string phrase = string.Empty;
         private double strength = 1.0;
         private bool containsOutput = true;
-        private bool isLora;
 
         public string Phrase { get => phrase; set => SetProperty(ref phrase, value); }
 
@@ -20,6 +20,20 @@ namespace PromptNote.Models
 
         public PromptType Type { get; set; } = PromptType.Normal;
 
-        public bool IsLora { get => isLora; set => SetProperty(ref isLora, value); }
+        public override string ToString()
+        {
+            if (Type == PromptType.Lora)
+            {
+                var p = phrase.Replace(">", string.Empty);
+                return $"{p}:{Strength}>, ";
+            }
+
+            if (Type == PromptType.LineBreak)
+            {
+                return Environment.NewLine;
+            }
+
+            return $"{Phrase}, ";
+        }
     }
 }

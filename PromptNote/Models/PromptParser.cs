@@ -112,6 +112,24 @@ namespace PromptNote.Models
                 return new Prompt() { Phrase = text, Strength = number, };
             }
 
+            var isLora = Regex.Match(prompt, @"<lora:[^:>]+:(\d+(\.\d+)?)>", RegexOptions.IgnoreCase);
+
+            if (isLora.Success)
+            {
+                var strength = isLora.Groups[1].Value;
+
+                // 末尾のスコア部分を削除し、Lora の名前だけを抽出してプロンプトに登録する。
+                // 検出対象に山括弧が含まれるのは、 数値から始まる Lora名をスコアとして誤検出されるのを防ぐためです
+                var exceptedScore = Regex.Replace(prompt, @":\d+(\.\d+)?>", string.Empty) + ">";
+                if (double.TryParse(strength, out var num))
+                {
+                    return new Prompt()
+                    {
+                        Phrase = exceptedScore.Trim(), Strength = num, Type = PromptType.Lora,
+                    };
+                }
+            }
+
             return new Prompt() { Phrase = prompt.Trim(), };
         }
     }

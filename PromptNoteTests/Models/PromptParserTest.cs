@@ -25,5 +25,20 @@ namespace PromptNoteTests.Models
             var actualOutput = PromptParser.Parse(input).Select(p => p.Phrase);
             CollectionAssert.AreEqual(expectedOutputs, actualOutput);
         }
+
+        [TestCase(@"<lora:test:1>", new[] { @"<lora:test>", }, 1.0)] // 通常フォーマット
+        [TestCase(@"<lora:test:1.5>", new[] { @"<lora:test>", }, 1.5)] // スコアを正しく認識できるか
+        [TestCase(@"<lora:11test:1.5>", new[] { @"<lora:11test>", }, 1.5)] // Lora の名前が数値から始まっても誤作動しないか
+        public void ParseTest_Lora(string input, string[] expectedOutputs, double expectedStrength)
+        {
+            var actualOutput = PromptParser.Parse(input).ToList();
+            CollectionAssert.AreEqual(expectedOutputs, actualOutput.Select(p => p.Phrase));
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualOutput.First().Strength, Is.EqualTo(expectedStrength));
+                Assert.That(actualOutput.First().Type, Is.EqualTo(PromptType.Lora));
+            });
+        }
     }
 }
