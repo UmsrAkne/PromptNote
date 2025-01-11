@@ -112,6 +112,20 @@ namespace PromptNote.Models
                 return new Prompt() { Phrase = text, Strength = number, };
             }
 
+            var isLora = Regex.Match(prompt, @"<lora:[^:>]+:(\d+(\.\d+)?)>");
+
+            if (isLora.Success)
+            {
+                var strength = isLora.Groups[1].Value;
+                if (double.TryParse(strength, out var num))
+                {
+                    return new Prompt()
+                    {
+                        Phrase = prompt.Trim(), Strength = num, IsLora = true,
+                    };
+                }
+            }
+
             return new Prompt() { Phrase = prompt.Trim(), };
         }
     }
