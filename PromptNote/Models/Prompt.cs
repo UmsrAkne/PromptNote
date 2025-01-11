@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Prism.Mvvm;
 
@@ -18,5 +19,21 @@ namespace PromptNote.Models
         public bool ContainsOutput { get => containsOutput; set => SetProperty(ref containsOutput, value); }
 
         public PromptType Type { get; set; } = PromptType.Normal;
+
+        public override string ToString()
+        {
+            if (Type == PromptType.Lora)
+            {
+                var p = phrase.Replace(">", string.Empty);
+                return $"{p}:{Strength}>, ";
+            }
+
+            if (Type == PromptType.LineBreak)
+            {
+                return Environment.NewLine;
+            }
+
+            return $"{Phrase}, ";
+        }
     }
 }
