@@ -55,7 +55,7 @@ namespace PromptNote.Models
                     continue;
                 }
 
-                if (bp == null || bp.Phrase == ap.Phrase)
+                if (bp == null || bp.Phrase.Value == ap.Phrase.Value)
                 {
                     continue;
                 }
@@ -75,12 +75,12 @@ namespace PromptNote.Models
                 return false;
 
             // 比較基準: Id が同じ
-            return a.Phrase == b.Phrase;
+            return a.Phrase.Value == b.Phrase.Value;
         }
 
         public int GetHashCode(Prompt obj)
         {
-            return obj.Phrase.GetHashCode();
+            return obj.Phrase.Value.GetHashCode();
         }
     }
 }

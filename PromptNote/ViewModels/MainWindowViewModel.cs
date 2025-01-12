@@ -44,7 +44,7 @@ namespace PromptNote.ViewModels
         /// </summary>
         public DelegateCommand AddPromptCommand => new DelegateCommand(() =>
         {
-            if (InputPrompt == null || string.IsNullOrWhiteSpace(InputPrompt.Phrase))
+            if (InputPrompt == null || string.IsNullOrWhiteSpace(InputPrompt.Phrase.Value))
             {
                 return;
             }
@@ -84,23 +84,23 @@ namespace PromptNote.ViewModels
         [Conditional("DEBUG")]
         private void SetDummies()
         {
-            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test1", });
+            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = new Phrase("test1"), });
 
             PromptsViewModel.Prompts.Add(new Prompt()
-                { Phrase = "test2", Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
+                { Phrase = new Phrase("test2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
 
             PromptsViewModel.Prompts.Add(new Prompt()
             {
-                Phrase = "test3", Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
+                Phrase = new Phrase("test3"), Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
-            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test4", });
-            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test5longLongLongLongLongLongLongText", });
-            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = "test6", });
+            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = new Phrase("test4"), });
+            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = new Phrase("test5longLongLongLongLongLongLongText"), });
+            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = new Phrase("test6"), });
 
             PromptsViewModel.Prompts.Add(new Prompt()
             {
-                Phrase = "test7", Tags = new List<Tag>() { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
+                Phrase = new Phrase("test7"), Tags = new List<Tag>() { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
 
@@ -112,13 +112,13 @@ namespace PromptNote.ViewModels
                     {
                         new ()
                         {
-                            Phrase = "PromptGroup text1", Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
+                            Phrase = new Phrase("PromptGroup text1"), Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                             ContainsOutput = false,
                         },
 
                         new ()
                         {
-                            Phrase = "PromptGroup text2", Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
+                            Phrase = new Phrase("PromptGroup text2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                             ContainsOutput = false,
                         },
                     },

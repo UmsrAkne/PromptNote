@@ -109,7 +109,7 @@ namespace PromptNote.Models
                 var numberString = match.Groups[2].Value; // 数値部分（文字列として）
                 var number = double.Parse(numberString); // 数値として取得
 
-                return new Prompt() { Phrase = text, Strength = number, };
+                return new Prompt() { Phrase = new Phrase(text), Strength = number, };
             }
 
             var isLora = Regex.Match(prompt, @"<lora:[^:>]+:(\d+(\.\d+)?)>", RegexOptions.IgnoreCase);
@@ -125,12 +125,12 @@ namespace PromptNote.Models
                 {
                     return new Prompt()
                     {
-                        Phrase = exceptedScore.Trim(), Strength = num, Type = PromptType.Lora,
+                        Phrase = new Phrase(exceptedScore.Trim()), Strength = num, Type = PromptType.Lora,
                     };
                 }
             }
 
-            return new Prompt() { Phrase = prompt.Trim(), };
+            return new Prompt() { Phrase = new Phrase(prompt.Trim()), };
         }
     }
 }
