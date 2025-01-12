@@ -27,6 +27,11 @@
             Command="{Binding PromptsViewModel.GeneratePromptCommand}"
             Modifiers="Control+Shift" />
 
+        <KeyBinding
+            Key="S"
+            Command="{Binding PromptGroupViewModel.SaveAsyncCommand}"
+            Modifiers="Control" />
+
     </Window.InputBindings>
 
     <Grid>
@@ -90,7 +95,7 @@
                     Grid.Column="1"
                     Width="100"
                     HorizontalAlignment="Right"
-                    Command="{Binding PromptGroupViewModel.AddGroupCommand}"
+                    Command="{Binding PromptGroupViewModel.AddGroupAsyncCommand}"
                     Content="Add"
                     DockPanel.Dock="Right"
                     IsEnabled="{Binding PromptGroupViewModel.CanGroupAddition}" />
@@ -167,7 +172,7 @@
                                 VerticalAlignment="Center"
                                 IsChecked="{Binding ContainsOutput}" />
 
-                            <TextBlock Grid.Column="1" Text="{Binding Phrase}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Phrase.Value}" />
                             <TextBlock Grid.Column="2" Text="{Binding Strength}" />
                             <ListBox
                                 Grid.Column="3"
@@ -256,7 +261,7 @@
                 <TextBox
                     Width="250"
                     Margin="3,0"
-                    Text="{Binding InputPrompt.Phrase}" />
+                    Text="{Binding InputPrompt.Phrase.Value}" />
 
                 <Border Width="0" Margin="6,0" />
 

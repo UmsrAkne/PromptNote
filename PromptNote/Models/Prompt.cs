@@ -6,11 +6,11 @@ namespace PromptNote.Models
 {
     public class Prompt : BindableBase
     {
-        private string phrase = string.Empty;
+        private Phrase phrase = new ();
         private double strength = 1.0;
         private bool containsOutput = true;
 
-        public string Phrase { get => phrase; set => SetProperty(ref phrase, value); }
+        public Phrase Phrase { get => phrase; set => SetProperty(ref phrase, value); }
 
         public double Strength { get => strength; set => SetProperty(ref strength, value); }
 
@@ -24,7 +24,7 @@ namespace PromptNote.Models
         {
             if (Type == PromptType.Lora)
             {
-                var p = phrase.Replace(">", string.Empty);
+                var p = Phrase.Value.Replace(">", string.Empty);
                 return $"{p}:{Strength}>, ";
             }
 
@@ -33,7 +33,7 @@ namespace PromptNote.Models
                 return Environment.NewLine;
             }
 
-            return $"{Phrase}, ";
+            return $"{Phrase.Value}, ";
         }
     }
 }

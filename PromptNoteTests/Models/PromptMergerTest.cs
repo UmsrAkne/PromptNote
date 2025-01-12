@@ -26,9 +26,9 @@ namespace PromptNoteTests.Models
         [TestCase( new[] { "a", "b", "c", }, new[] { "a", "c", "b",}, new[] { "a", "c", "b", })]
         public void MergePromptsTest_Normal(string[] basePrompts, string[] additionalPrompts, string[] expectedPrompts)
         {
-            var bps = basePrompts.Select(p => new Prompt() { Phrase = p, }).ToList();
-            var aps = additionalPrompts.Select(p => new Prompt() { Phrase = p, }).ToList();
-            var actualOutput = PromptMerger.MergePrompts(bps, aps).Select(p => p.Phrase).ToArray();
+            var bps = basePrompts.Select(p => new Prompt() { Phrase = new Phrase(p), }).ToList();
+            var aps = additionalPrompts.Select(p => new Prompt() { Phrase = new Phrase(p), }).ToList();
+            var actualOutput = PromptMerger.MergePrompts(bps, aps).Select(p => p.Phrase.Value).ToArray();
             CollectionAssert.AreEqual(expectedPrompts, actualOutput);
         }
 
@@ -51,8 +51,8 @@ namespace PromptNoteTests.Models
         [TestCase( new[] { "a", "b", "c", }, new[] { "a", "c", "b",}, new[] { true, true, true, })]
         public void MergePromptsTest_Check_OutputFlags(string[] basePrompts, string[] additionalPrompts, bool[] expectedPrompts)
         {
-            var bps = basePrompts.Select(p => new Prompt() { Phrase = p, }).ToList();
-            var aps = additionalPrompts.Select(p => new Prompt() { Phrase = p, }).ToList();
+            var bps = basePrompts.Select(p => new Prompt() { Phrase = new Phrase(p), }).ToList();
+            var aps = additionalPrompts.Select(p => new Prompt() { Phrase = new Phrase(p), }).ToList();
             var actualOutput = PromptMerger.MergePrompts(bps, aps).Select(p => p.ContainsOutput).ToArray();
             CollectionAssert.AreEqual(expectedPrompts, actualOutput);
         }

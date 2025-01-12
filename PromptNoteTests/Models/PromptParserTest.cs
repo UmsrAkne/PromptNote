@@ -12,7 +12,7 @@ namespace PromptNoteTests.Models
         [TestCase("t0, (t, t1:1.5), (t3, t4:1.5)", new[] { "t0", "t", "t1", "t3", "t4", })] // 複数のフレーズを含む括弧が複数あるケース。
         public void ParseTest_Normal(string input, string[] expectedOutputs)
         {
-            var actualOutput = PromptParser.Parse(input).Select(p => p.Phrase);
+            var actualOutput = PromptParser.Parse(input).Select(p => p.Phrase.Value);
             CollectionAssert.AreEqual(expectedOutputs, actualOutput);
         }
 
@@ -22,7 +22,7 @@ namespace PromptNoteTests.Models
         [TestCase(@"\(t1\), (t2:0.5), t3", new[] { @"\(t1\)", "t2", "t3", })] // エスケープ・通常括弧・括弧なし
         public void ParseTest_With_Escape(string input, string[] expectedOutputs)
         {
-            var actualOutput = PromptParser.Parse(input).Select(p => p.Phrase);
+            var actualOutput = PromptParser.Parse(input).Select(p => p.Phrase.Value);
             CollectionAssert.AreEqual(expectedOutputs, actualOutput);
         }
 
@@ -32,7 +32,7 @@ namespace PromptNoteTests.Models
         public void ParseTest_Lora(string input, string[] expectedOutputs, double expectedStrength)
         {
             var actualOutput = PromptParser.Parse(input).ToList();
-            CollectionAssert.AreEqual(expectedOutputs, actualOutput.Select(p => p.Phrase));
+            CollectionAssert.AreEqual(expectedOutputs, actualOutput.Select(p => p.Phrase.Value));
 
             Assert.Multiple(() =>
             {
