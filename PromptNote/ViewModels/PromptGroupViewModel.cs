@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
 using Prism.Commands;
+using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using PromptNote.Models;
+using PromptNote.Models.Dbs;
 using PromptNote.Views;
 
 namespace PromptNote.ViewModels
@@ -14,9 +16,15 @@ namespace PromptNote.ViewModels
         private PromptGroup selectedItem;
         private string inputName;
 
-        public PromptGroupViewModel(IDialogService dialogService)
+        public PromptGroupViewModel(IDialogService dialogService, IContainerProvider containerProvider)
         {
             this.dialogService = dialogService;
+
+            // xaml プレビューで使われるデフォルトコンストラクタで作られた、当インスタンスは containerProvider に null が入力される。
+            if (containerProvider != null)
+            {
+                PromptGroupRepository = containerProvider.Resolve<IPromptGroupRepository>();
+            }
         }
 
         public ObservableCollection<PromptGroup> PromptGroups { get; set; } = new ();
@@ -62,5 +70,7 @@ namespace PromptNote.ViewModels
                 }
             });
         });
+
+        private IPromptGroupRepository PromptGroupRepository { get; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Prism.Ioc;
+using PromptNote.Models.Dbs;
 using PromptNote.ViewModels;
 using PromptNote.Views;
 
@@ -18,6 +19,7 @@ namespace PromptNote
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<TextInputPage, TextInputPageViewModel>();
+            containerRegistry.RegisterInstance<IPromptGroupRepository>(new JsonPromptGroupRepository("PromptGroups.json"));
         }
     }
 }
