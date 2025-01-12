@@ -27,6 +27,11 @@
             Command="{Binding PromptsViewModel.GeneratePromptCommand}"
             Modifiers="Control+Shift" />
 
+        <KeyBinding
+            Key="S"
+            Command="{Binding PromptGroupViewModel.SaveAsyncCommand}"
+            Modifiers="Control" />
+
     </Window.InputBindings>
 
     <Grid>
@@ -90,7 +95,7 @@
                     Grid.Column="1"
                     Width="100"
                     HorizontalAlignment="Right"
-                    Command="{Binding PromptGroupViewModel.AddGroupCommand}"
+                    Command="{Binding PromptGroupViewModel.AddGroupAsyncCommand}"
                     Content="Add"
                     DockPanel.Dock="Right"
                     IsEnabled="{Binding PromptGroupViewModel.CanGroupAddition}" />

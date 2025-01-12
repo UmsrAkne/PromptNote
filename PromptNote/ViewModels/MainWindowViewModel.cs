@@ -25,7 +25,7 @@ namespace PromptNote.ViewModels
         [Obsolete("Xaml のプレビューを正しく表示するためのデフォルトコンストラクタです。それ以外の用途で使わないでください。")]
         public MainWindowViewModel()
         {
-            PromptGroupViewModel = new PromptGroupViewModel(null);
+            PromptGroupViewModel = new PromptGroupViewModel(null, null);
             SetDummies();
         }
 
