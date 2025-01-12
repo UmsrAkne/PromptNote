@@ -34,6 +34,12 @@ namespace PromptNote.Models.Dbs
             return Task.CompletedTask;
         }
 
+        public Task SaveChangesAsync()
+        {
+            SaveToFile();
+            return Task.CompletedTask;
+        }
+
         private List<PromptGroup> LoadFromFile()
         {
             if (!File.Exists(filePath))

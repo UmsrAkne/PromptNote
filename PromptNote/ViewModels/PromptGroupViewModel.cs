@@ -24,6 +24,7 @@ namespace PromptNote.ViewModels
             if (containerProvider != null)
             {
                 PromptGroupRepository = containerProvider.Resolve<IPromptGroupRepository>();
+                PromptGroups = new ObservableCollection<PromptGroup>(PromptGroupRepository.GetAllAsync().Result);
             }
         }
 
@@ -48,9 +49,11 @@ namespace PromptNote.ViewModels
         /// <summary>
         /// InputName に入力中のテキストを名前とした PromptGroup をリストに追加し、InputName を空文字で初期化します。
         /// </summary>
-        public DelegateCommand AddGroupCommand => new (() =>
+        public AsyncDelegateCommand AddGroupAsyncCommand => new AsyncDelegateCommand(async () =>
         {
-            PromptGroups.Add(new PromptGroup() { Name = InputName, });
+            var pg = new PromptGroup() { Name = InputName, };
+            PromptGroups.Add(pg);
+            await PromptGroupRepository.AddAsync(pg);
             InputName = string.Empty;
         });
 
@@ -69,6 +72,11 @@ namespace PromptNote.ViewModels
                     SelectedItem.Name = result.Parameters.GetValue<string>(nameof(TextInputPageViewModel.Text));
                 }
             });
+        });
+
+        public AsyncDelegateCommand SaveAsyncCommand => new AsyncDelegateCommand(async () =>
+        {
+            await PromptGroupRepository.SaveChangesAsync();
         });
 
         private IPromptGroupRepository PromptGroupRepository { get; }

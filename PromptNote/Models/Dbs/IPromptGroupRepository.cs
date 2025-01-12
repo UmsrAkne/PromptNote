@@ -10,5 +10,7 @@ namespace PromptNote.Models.Dbs
         Task<IEnumerable<PromptGroup>> GetAllAsync();
 
         Task AddAsync(PromptGroup promptGroup);
+
+        Task SaveChangesAsync();
     }
 }
