@@ -198,6 +198,17 @@ namespace PromptNote.Behaviors
                     vm.PromptsViewModel.CursorManager.MoveCursorUp();
                     break;
 
+                case Key.I:
+                    if (listBox.SelectedIndex >= 0)
+                    {
+                        if (listBox.SelectedItem is Prompt item)
+                        {
+                            item.ContainsOutput = !item.ContainsOutput;
+                        }
+                    }
+
+                    break;
+
                 case Key.Delete:
                     if (listBox.SelectedIndex >= 0)
                     {
