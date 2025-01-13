@@ -49,7 +49,13 @@ namespace PromptNote.ViewModels
                 return;
             }
 
-            PromptsViewModel.Prompts.Add(InputPrompt);
+            var p = PromptParser.Parse(InputPrompt.Phrase.Value).FirstOrDefault();
+
+            if (p != null)
+            {
+                PromptsViewModel.Prompts.Add(p);
+            }
+
             InputPrompt = new Prompt();
         });
 
