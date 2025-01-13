@@ -67,12 +67,14 @@ namespace PromptNote.Models
         }
     }
 
-    class PromptComparer : IEqualityComparer<Prompt>
+    internal class PromptComparer : IEqualityComparer<Prompt>
     {
         public bool Equals(Prompt a, Prompt b)
         {
             if (a == null || b == null)
+            {
                 return false;
+            }
 
             // 比較基準: Id が同じ
             return a.Phrase.Value == b.Phrase.Value;
