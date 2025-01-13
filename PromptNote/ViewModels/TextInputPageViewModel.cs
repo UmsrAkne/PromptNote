@@ -40,7 +40,6 @@ namespace PromptNote.ViewModels
             {
                 Text = parameters.GetValue<string>(nameof(Text));
             }
-
         }
     }
 }

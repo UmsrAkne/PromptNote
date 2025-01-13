@@ -65,22 +65,24 @@ namespace PromptNote.Models
 
             return list.Where(p => p != null).ToList();
         }
-    }
 
-    class PromptComparer : IEqualityComparer<Prompt>
-    {
-        public bool Equals(Prompt a, Prompt b)
+        private class PromptComparer : IEqualityComparer<Prompt>
         {
-            if (a == null || b == null)
-                return false;
+            public bool Equals(Prompt a, Prompt b)
+            {
+                if (a == null || b == null)
+                {
+                    return false;
+                }
 
-            // 比較基準: Id が同じ
-            return a.Phrase.Value == b.Phrase.Value;
-        }
+                // 比較基準: Id が同じ
+                return a.Phrase.Value == b.Phrase.Value;
+            }
 
-        public int GetHashCode(Prompt obj)
-        {
-            return obj.Phrase.Value.GetHashCode();
+            public int GetHashCode(Prompt obj)
+            {
+                return obj.Phrase.Value.GetHashCode();
+            }
         }
     }
 }

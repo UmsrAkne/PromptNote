@@ -8,7 +8,7 @@ namespace PromptNote.Models
         private string val;
         private string colorName = nameof(Colors.Black);
 
-        public string Value { get => val; set => SetProperty(ref this.val, value); }
+        public string Value { get => val; set => SetProperty(ref val, value); }
 
         public string ColorName { get => colorName; set => SetProperty(ref colorName, value); }
 
