@@ -14,5 +14,7 @@
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptParserTest.ParseTest_Lora("&amp;lt;lora:test:1.5&amp;gt;",["&amp;lt;lora:test:1.5&amp;gt;"],1.5d)&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptTest.ToStringTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptTest.ToStringTest("test",Normal,"test")&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptFormatterTest.FormatTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptsFormatterTest.FormatTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
