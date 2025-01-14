@@ -25,7 +25,7 @@ namespace PromptNote.Models
             if (Type == PromptType.Lora)
             {
                 var p = Phrase.Value.Replace(">", string.Empty);
-                return $"{p}:{Strength}>, ";
+                return $"{p}:{Strength}>";
             }
 
             if (Type == PromptType.LineBreak)
@@ -33,7 +33,7 @@ namespace PromptNote.Models
                 return Environment.NewLine;
             }
 
-            return $"{Phrase.Value}, ";
+            return Phrase.Value;
         }
     }
 }

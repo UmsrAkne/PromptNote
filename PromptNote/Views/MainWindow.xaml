@@ -52,6 +52,7 @@
             </Grid.RowDefinitions>
 
             <ListBox
+                AllowDrop="True"
                 AlternationCount="2"
                 ItemsSource="{Binding PromptGroupViewModel.PromptGroups}"
                 SelectedItem="{Binding PromptGroupViewModel.SelectedItem}">
@@ -60,14 +61,21 @@
                         <i:InvokeCommandAction Command="{Binding UpdatePromptsCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                <i:Interaction.Behaviors>
+                    <behaviors:DragAndDropBehavior />
+                </i:Interaction.Behaviors>
 
                 <ListBox.InputBindings>
                     <KeyBinding Key="F2" Command="{Binding PromptGroupViewModel.ShowRenameDialogCommand}" />
                 </ListBox.InputBindings>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:PromptGroup}">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel>
                             <TextBlock Text="{Binding Name}" />
+                            <Image
+                                MaxWidth="200"
+                                MaxHeight="100"
+                                Source="{Binding SampleImagePath, TargetNullValue={x:Null}}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -180,7 +188,15 @@
                                 BorderThickness="0"
                                 ItemsSource="{Binding Tags}">
 
-                                <ListBox.Resources>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type models:Tag}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Foreground="{Binding ColorName}" Text="{Binding Value}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                                <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="SnapsToDevicePixels" Value="true" />
                                         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -210,15 +226,7 @@
                                             </Setter.Value>
                                         </Setter>
                                     </Style>
-                                </ListBox.Resources>
-
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type models:Tag}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Foreground="{Binding ColorName}" Text="{Binding Value}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
+                                </ListBox.ItemContainerStyle>
 
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>

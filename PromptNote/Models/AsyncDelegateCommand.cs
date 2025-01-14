@@ -32,7 +32,7 @@ namespace PromptNote.Models
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        private async Task ExecuteAsync()
+        public async Task ExecuteAsync()
         {
             await execute();
         }

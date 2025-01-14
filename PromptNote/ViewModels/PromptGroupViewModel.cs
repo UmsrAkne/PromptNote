@@ -57,6 +57,17 @@ namespace PromptNote.ViewModels
             InputName = string.Empty;
         });
 
+        public DelegateCommand<string> LoadImageCommand => new DelegateCommand<string>(path =>
+        {
+            if (SelectedItem == null)
+            {
+                return;
+            }
+
+            SelectedItem.SampleImagePath = path;
+            _ = SaveAsyncCommand.ExecuteAsync();
+        });
+
         public DelegateCommand ShowRenameDialogCommand => new DelegateCommand(() =>
         {
             if (SelectedItem == null)
