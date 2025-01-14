@@ -39,7 +39,27 @@ namespace PromptNote.Behaviors
 
             if (files?.Length == 1 && File.Exists(files.First()))
             {
-                vm.PromptGroupViewModel.LoadImageCommand.Execute(files.FirstOrDefault());
+                if (vm.PromptGroupViewModel.SelectedItem != null)
+                {
+                    var p = files.FirstOrDefault();
+                    var fileName = Path.GetFileName(p);
+                    if (string.IsNullOrWhiteSpace(p) || string.IsNullOrWhiteSpace(fileName))
+                    {
+                        return;
+                    }
+
+                    var dirName = "sampleImages";
+                    var dest = new FileInfo($"{dirName}\\{fileName}");
+
+                    if (!Directory.Exists(dirName))
+                    {
+                        Directory.CreateDirectory(dirName);
+                    }
+
+                    File.Copy(p, dest.FullName, true);
+                    vm.PromptGroupViewModel.SelectedItem.SampleImagePath = dest.FullName;
+                    _ = vm.PromptGroupViewModel.SaveAsyncCommand.ExecuteAsync();
+                }
             }
         }
 
