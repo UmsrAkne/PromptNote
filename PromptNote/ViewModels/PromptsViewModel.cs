@@ -34,8 +34,8 @@ namespace PromptNote.ViewModels
         /// </summary>
         public DelegateCommand GeneratePromptCommand => new DelegateCommand(() =>
         {
-            var prs = Prompts.Where(p => p.ContainsOutput).Select(p => p.ToString());
-            Clipboard.SetText(string.Join(string.Empty, prs));
+            var prs = Prompts.Where(p => p.ContainsOutput);
+            Clipboard.SetText(PromptsFormatter.Format(prs.ToList()));
         });
     }
 }
