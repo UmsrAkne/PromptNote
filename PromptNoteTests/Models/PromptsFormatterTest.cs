@@ -19,5 +19,68 @@ namespace PromptNoteTests.Models
             var list = inputs.Select((t, i) => new Prompt() { Phrase = new Phrase() { Value = t, }, Strength = strengths[i], }).ToList();
             Assert.That(PromptsFormatter.Format(list), Is.EqualTo(expected));
         }
+
+        /// <summary>
+        /// リストに入っているプロンプトが Lora 一つだけ。
+        /// </summary>
+        [Test]
+        public void FormatTest_ContainsLora_Single()
+        {
+            var list = new List<Prompt>()
+            {
+                new () { Phrase = new Phrase() { Value = "<lora:la>", }, Type = PromptType.Lora, Strength = 0.5, },
+            };
+
+            Assert.That(PromptsFormatter.Format(list), Is.EqualTo("<lora:la:0.5>"));
+        }
+
+        /// <summary>
+        /// リストに入っているプロンプトが Lora とその他の２つ。
+        /// </summary>
+        [Test]
+        public void FormatTest_ContainsLora_double()
+        {
+            var list = new List<Prompt>()
+            {
+                new () { Phrase = new Phrase() { Value = "a", }, Type = PromptType.Normal, Strength = 1.0, },
+                new () { Phrase = new Phrase() { Value = "<lora:lb>", }, Type = PromptType.Lora, Strength = 0.5, },
+            };
+
+            Assert.That(PromptsFormatter.Format(list), Is.EqualTo("a, <lora:lb:0.5>"));
+        }
+
+        /// <summary>
+        /// リストに入っている Lora が一つ含まれていて、それがその他のプロンプトの間に挟まっている。
+        /// </summary>
+        [Test]
+        public void FormatTest_ContainsLora_Triple()
+        {
+            var list = new List<Prompt>()
+            {
+                new () { Phrase = new Phrase() { Value = "a", }, Type = PromptType.Normal, Strength = 1.0, },
+                new () { Phrase = new Phrase() { Value = "<lora:lb>", }, Type = PromptType.Lora, Strength = 0.5, },
+                new () { Phrase = new Phrase() { Value = "c", }, Type = PromptType.Normal, Strength = 1.0, },
+            };
+
+            Assert.That(PromptsFormatter.Format(list), Is.EqualTo("a, <lora:lb:0.5>, c"));
+        }
+
+        /// <summary>
+        /// リストに入っている Lora が一つ含まれていて、それがグループ強調文のプロンプトの間に挟まっている。
+        /// </summary>
+        [Test]
+        public void FormatTest_ContainsLora_Five()
+        {
+            var list = new List<Prompt>()
+            {
+                new () { Phrase = new Phrase() { Value = "a", }, Type = PromptType.Normal, Strength = 1.2, },
+                new () { Phrase = new Phrase() { Value = "b", }, Type = PromptType.Normal, Strength = 1.2, },
+                new () { Phrase = new Phrase() { Value = "<lora:lc>", }, Type = PromptType.Lora, Strength = 0.5, },
+                new () { Phrase = new Phrase() { Value = "d", }, Type = PromptType.Normal, Strength = 1.2, },
+                new () { Phrase = new Phrase() { Value = "e", }, Type = PromptType.Normal, Strength = 1.2, },
+            };
+
+            Assert.That(PromptsFormatter.Format(list), Is.EqualTo("(a, b:1.2), <lora:lc:0.5>, (d, e:1.2)"));
+        }
     }
 }

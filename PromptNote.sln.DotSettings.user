@@ -16,5 +16,9 @@
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptTest.ToStringTest("test",Normal,"test")&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptFormatterTest.FormatTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptsFormatterTest.FormatTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptsFormatterTest.FormatTest_ContainsLora_Single&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptsFormatterTest.FormatTest_ContainsLora_Triple&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptsFormatterTest.FormatTest_ContainsLora_double&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptsFormatterTest.FormatTest_ContainsLora_Five&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
