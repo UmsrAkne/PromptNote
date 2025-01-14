@@ -180,7 +180,15 @@
                                 BorderThickness="0"
                                 ItemsSource="{Binding Tags}">
 
-                                <ListBox.Resources>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type models:Tag}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Foreground="{Binding ColorName}" Text="{Binding Value}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                                <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="SnapsToDevicePixels" Value="true" />
                                         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -210,15 +218,7 @@
                                             </Setter.Value>
                                         </Setter>
                                     </Style>
-                                </ListBox.Resources>
-
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type models:Tag}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Foreground="{Binding ColorName}" Text="{Binding Value}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
+                                </ListBox.ItemContainerStyle>
 
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
