@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using Prism.Commands;
 using Prism.Ioc;
@@ -51,7 +52,7 @@ namespace PromptNote.ViewModels
         /// </summary>
         public AsyncDelegateCommand AddGroupAsyncCommand => new AsyncDelegateCommand(async () =>
         {
-            var pg = new PromptGroup() { Name = InputName, };
+            var pg = new PromptGroup() { Name = InputName, CreatedAt = DateTime.Now, };
             PromptGroups.Add(pg);
             await PromptGroupRepository.AddAsync(pg);
             InputName = string.Empty;
