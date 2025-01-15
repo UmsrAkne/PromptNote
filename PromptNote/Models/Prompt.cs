@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Prism.Mvvm;
 
 namespace PromptNote.Models
@@ -9,6 +10,19 @@ namespace PromptNote.Models
         private Phrase phrase = new ();
         private double strength = 1.0;
         private bool containsOutput = true;
+
+        public Prompt(string phrase)
+        {
+            Phrase = new Phrase(phrase);
+            if (new[] { "\r\n", "\n", "\r", }.Contains(phrase))
+            {
+                Type = PromptType.LineBreak;
+            }
+        }
+
+        public Prompt()
+        {
+        }
 
         public Phrase Phrase { get => phrase; set => SetProperty(ref phrase, value); }
 
