@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -42,7 +43,8 @@ namespace PromptNote.Behaviors
                 if (vm.PromptGroupViewModel.SelectedItem != null)
                 {
                     var p = files.FirstOrDefault();
-                    var fileName = Path.GetFileName(p);
+                    var dtStr = DateTime.Now.ToString("yyyyMMddhhmmssfff");
+                    var fileName = $"{Path.GetFileNameWithoutExtension(p)}_{dtStr}{Path.GetExtension(p)}";
                     if (string.IsNullOrWhiteSpace(p) || string.IsNullOrWhiteSpace(fileName))
                     {
                         return;
