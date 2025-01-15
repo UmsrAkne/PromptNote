@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Prism.Mvvm;
 
@@ -8,6 +9,7 @@ namespace PromptNote.Models
         private string name;
         private int id;
         private string sampleImagePath;
+        private DateTime createdAt;
 
         public int Id { get => id; set => SetProperty(ref id, value); }
 
@@ -18,6 +20,8 @@ namespace PromptNote.Models
             get => sampleImagePath;
             set => SetProperty(ref sampleImagePath, value);
         }
+
+        public DateTime CreatedAt { get => createdAt; set => SetProperty(ref createdAt, value); }
 
         public List<Prompt> Prompts { get; set; } = new ();
     }
