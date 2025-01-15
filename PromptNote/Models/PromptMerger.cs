@@ -13,6 +13,40 @@ namespace PromptNote.Models
         /// <returns>引数に入力されたリストをマージしたリスト。</returns>
         public static List<Prompt> MergePrompts(List<Prompt> basePrompts, List<Prompt> additionalPrompts)
         {
+            var tempBases = basePrompts.ToList();
+            var tempAdditions = additionalPrompts.ToList();
+            var comparer = new PromptComparer();
+
+            for (var i = 0; i < tempBases.Count; i++)
+            {
+                if (tempAdditions.Contains(tempBases[i], comparer))
+                {
+                    tempBases[i] = null;
+                }
+            }
+
+            var baseLines = SplitPrompts(tempBases);
+            var additionalLines = SplitPrompts(tempAdditions);
+
+            while (baseLines.Count < additionalLines.Count)
+            {
+                baseLines.Add(new List<Prompt>());
+            }
+
+            var result = new List<Prompt>();
+            for (var i = 0; i < baseLines.Count; i++)
+            {
+                var b = baseLines[i];
+                var a = i <= additionalLines.Count - 1 ? additionalLines[i] : new List<Prompt>();
+
+                result.AddRange(Merge(b, a));
+            }
+
+            return result;
+        }
+
+        private static List<Prompt> Merge(List<Prompt> basePrompts, List<Prompt> additionalPrompts)
+        {
             var list = new List<Prompt>();
             var tempBases = basePrompts.ToList();
             var tempAdditions = additionalPrompts.ToList();
@@ -22,6 +56,11 @@ namespace PromptNote.Models
             // 追加側に存在しないプロンプトは出力に含まれないよう設定する
             foreach (var p in tempBases.Except(tempAdditions, comparer))
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 p.ContainsOutput = false;
             }
 
@@ -64,6 +103,38 @@ namespace PromptNote.Models
             }
 
             return list.Where(p => p != null).ToList();
+        }
+
+        /// <summary>
+        /// 入力されたプロンプトのリストを LineBreak の箇所で分割し、Prompt のリストのリストを生成します。
+        /// </summary>
+        /// <param name="target">分割するリストを入力します。</param>
+        /// <returns>入力されたリストを改行の地点で分割したリスト。改行部分は分割後のリストの末尾に配置されます。</returns>
+        private static List<List<Prompt>> SplitPrompts(List<Prompt> target)
+        {
+            var lists = new List<List<Prompt>>();
+            var l = new List<Prompt>();
+            foreach (var p in target)
+            {
+                l.Add(p);
+                if (p == null)
+                {
+                    continue;
+                }
+
+                if (p.Type == PromptType.LineBreak)
+                {
+                    lists.Add(l.ToList());
+                    l.Clear();
+                }
+            }
+
+            if (l.Count != 0)
+            {
+                lists.Add(l);
+            }
+
+            return lists;
         }
 
         private class PromptComparer : IEqualityComparer<Prompt>
