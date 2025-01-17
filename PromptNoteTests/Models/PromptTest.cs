@@ -16,6 +16,7 @@ namespace PromptNoteTests.Models
 
         [Test]
         [TestCase("test", PromptType.Normal)]
+        [TestCase("<lora:test>", PromptType.Lora)]
         [TestCase("{p1|p2}", PromptType.DynamicPrompt)]
         [TestCase("{p1|p2} p3", PromptType.DynamicPrompt)]
         public void TypeDetectionTest(string phrase, PromptType expectedType)

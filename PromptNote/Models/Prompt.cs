@@ -22,6 +22,12 @@ namespace PromptNote.Models
                 return;
             }
 
+            if (Regex.IsMatch(phrase, "<lora:.*>"))
+            {
+                Type = PromptType.Lora;
+                return;
+            }
+
             if (new[] { "\r\n", "\n", "\r", }.Contains(phrase))
             {
                 Type = PromptType.LineBreak;
