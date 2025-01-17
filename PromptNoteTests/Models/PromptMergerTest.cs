@@ -64,6 +64,11 @@ namespace PromptNoteTests.Models
             new[] { "a", "\r", "c", "d", "\r", })]
 
         [TestCase(
+                new[] { "a", "\r", "b", "\r", "c", "\r", },
+                new[] { "a", "\r", "b", "d", "\r", "e", "\r", },
+                new[] { "a", "\r", "b", "d", "\r", "e", "c", "\r", })]
+
+        [TestCase(
             new[] { "a", },
             new[] { "a", "b", "\r", "c", },
             new[] { "a", "b", "\r", "c", })]

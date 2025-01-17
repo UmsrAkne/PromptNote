@@ -5,5 +5,6 @@ namespace PromptNote.Models
         Normal = 0,
         Lora = 1,
         LineBreak = 2,
+        DynamicPrompt = 3,
     }
 }

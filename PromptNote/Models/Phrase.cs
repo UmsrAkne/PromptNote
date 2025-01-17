@@ -5,6 +5,7 @@ namespace PromptNote.Models
     public class Phrase : BindableBase
     {
         private string val = string.Empty;
+        private string comment;
 
         public Phrase(string phrase)
         {
@@ -20,5 +21,7 @@ namespace PromptNote.Models
             get => val;
             set => SetProperty(ref val, value);
         }
+
+        public string Comment { get => comment; set => SetProperty(ref comment, value); }
     }
 }
