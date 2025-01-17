@@ -19,6 +19,11 @@ namespace PromptNote.Models
 
             for (var i = 0; i < tempBases.Count; i++)
             {
+                if (tempBases[i].Type == PromptType.LineBreak)
+                {
+                    continue;
+                }
+
                 if (tempAdditions.Contains(tempBases[i], comparer))
                 {
                     tempBases[i] = null;
