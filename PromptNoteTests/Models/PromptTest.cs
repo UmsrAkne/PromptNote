@@ -13,5 +13,15 @@ namespace PromptNoteTests.Models
             var actual = new Prompt() { Phrase = new Phrase() { Value = phrase, }, Type = type, }.ToString();
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        [TestCase("test", PromptType.Normal)]
+        [TestCase("{p1|p2}", PromptType.DynamicPrompt)]
+        [TestCase("{p1|p2} p3", PromptType.DynamicPrompt)]
+        public void TypeDetectionTest(string phrase, PromptType expectedType)
+        {
+            var actual = new Prompt(phrase).Type;
+            Assert.That(actual, Is.EqualTo(expectedType));
+        }
     }
 }

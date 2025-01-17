@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Prism.Mvvm;
 
 namespace PromptNote.Models
@@ -14,6 +15,13 @@ namespace PromptNote.Models
         public Prompt(string phrase)
         {
             Phrase = new Phrase(phrase);
+
+            if (Regex.IsMatch(phrase, "{.*|.*}"))
+            {
+                Type = PromptType.DynamicPrompt;
+                return;
+            }
+
             if (new[] { "\r\n", "\n", "\r", }.Contains(phrase))
             {
                 Type = PromptType.LineBreak;
