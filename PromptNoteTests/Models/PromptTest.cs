@@ -27,5 +27,17 @@ namespace PromptNoteTests.Models
             var actual = new Prompt(phrase).Type;
             Assert.That(actual, Is.EqualTo(expectedType));
         }
+
+        [Test]
+        [TestCase("{p1|p2}", "{p1|p2}")] // 通常ケース。
+        [TestCase("{p1|p2|p3}", "{p1|p2|p3}")] // 変数３つ。
+        [TestCase("{p1|p2|P3}", "{p1|p2|p3}")] // 変数３つ、大文字混在。小文字に変換されるか？
+        [TestCase("{p1|p3|p2}", "{p1|p2|p3}")] // 変数３つ、順番違い。ソートされて出力されるか？
+        [TestCase("{p1|p2} p3", "{p1|p2} p3")] // 通常ケース、末尾に定数ワードつき。
+        public void FormatDynamicPromptTest(string phrase, string expectedPhrase)
+        {
+            var actual = new Prompt(phrase).Phrase.Value;
+            Assert.That(actual, Is.EqualTo(expectedPhrase));
+        }
     }
 }

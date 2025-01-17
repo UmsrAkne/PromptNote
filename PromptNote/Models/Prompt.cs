@@ -14,13 +14,28 @@ namespace PromptNote.Models
 
         public Prompt(string phrase)
         {
-            Phrase = new Phrase(phrase);
-
             if (Regex.IsMatch(phrase, "{.*|.*}"))
             {
+                // ダイナミックプロンプトと判別された場合は、フレーズのフォーマットを整えて、ワードをソートします。
+                // これは、フレーズの無駄な重複登録を防ぐための処理です。
                 Type = PromptType.DynamicPrompt;
+                var variableStr = Regex.Match(phrase, "{(.*)}").Groups[1].Value;
+                var variables = variableStr
+                    .ToLower()
+                    .Split('|')
+                    .Select(s => s.Trim())
+                    .Distinct()
+                    .OrderBy(s => s);
+
+                var result = string.Join('|', variables);
+
+                var p = Regex.Replace(phrase, "{.*}", $"{{{result}}}");
+                Phrase = new Phrase(p);
+
                 return;
             }
+
+            Phrase = new Phrase(phrase);
 
             if (Regex.IsMatch(phrase, "<lora:.*>"))
             {
