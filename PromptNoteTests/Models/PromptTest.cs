@@ -19,6 +19,9 @@ namespace PromptNoteTests.Models
         [TestCase("<lora:test>", PromptType.Lora)]
         [TestCase("{p1|p2}", PromptType.DynamicPrompt)]
         [TestCase("{p1|p2} p3", PromptType.DynamicPrompt)]
+        [TestCase("\r", PromptType.LineBreak)]
+        [TestCase("\r\n", PromptType.LineBreak)]
+        [TestCase("\n", PromptType.LineBreak)]
         public void TypeDetectionTest(string phrase, PromptType expectedType)
         {
             var actual = new Prompt(phrase).Type;
