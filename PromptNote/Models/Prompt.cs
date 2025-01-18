@@ -11,6 +11,7 @@ namespace PromptNote.Models
         private Phrase phrase = new ();
         private double strength = 1.0;
         private bool containsOutput = true;
+        private int lineNumber;
 
         public Prompt(string phrase)
         {
@@ -62,6 +63,8 @@ namespace PromptNote.Models
         public bool ContainsOutput { get => containsOutput; set => SetProperty(ref containsOutput, value); }
 
         public PromptType Type { get; set; } = PromptType.Normal;
+
+        public int LineNumber { get => lineNumber; set => SetProperty(ref lineNumber, value); }
 
         public override string ToString()
         {

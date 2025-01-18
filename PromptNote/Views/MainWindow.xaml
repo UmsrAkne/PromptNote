@@ -116,17 +116,18 @@
             <!--  擬似ヘッダー行  -->
             <Grid Margin="7,2" DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="25" />
                     <ColumnDefinition />
                     <ColumnDefinition Width="50" />
                     <ColumnDefinition Width="150" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" />
-                <TextBlock Grid.Column="1" Text="テキスト" />
+                <TextBlock Grid.Column="1" />
+                <TextBlock Grid.Column="2" Text="テキスト" />
 
                 <Border
-                    Grid.Column="2"
+                    Grid.Column="3"
                     Padding="3,0"
                     BorderBrush="Black"
                     BorderThickness="1,0,0,0">
@@ -134,7 +135,7 @@
                 </Border>
 
                 <Border
-                    Grid.Column="3"
+                    Grid.Column="4"
                     Padding="3,0"
                     BorderBrush="Black"
                     BorderThickness="1,0,0,0">
@@ -169,21 +170,24 @@
                             </Grid.Style>
 
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
                                 <ColumnDefinition Width="25" />
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="50" />
                                 <ColumnDefinition Width="150" />
                             </Grid.ColumnDefinitions>
 
+                            <TextBlock Grid.Column="0" Text="{Binding LineNumber, StringFormat={}{0:D3}}" />
+
                             <CheckBox
-                                Grid.Column="0"
+                                Grid.Column="1"
                                 VerticalAlignment="Center"
                                 IsChecked="{Binding ContainsOutput}" />
 
-                            <TextBlock Grid.Column="1" Text="{Binding Phrase.Value}" />
-                            <TextBlock Grid.Column="2" Text="{Binding Strength}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Phrase.Value}" />
+                            <TextBlock Grid.Column="3" Text="{Binding Strength}" />
                             <ListBox
-                                Grid.Column="3"
+                                Grid.Column="4"
                                 Background="Transparent"
                                 BorderThickness="0"
                                 ItemsSource="{Binding Tags}">

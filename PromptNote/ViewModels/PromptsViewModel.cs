@@ -37,5 +37,13 @@ namespace PromptNote.ViewModels
             var prs = Prompts.Where(p => p.ContainsOutput);
             Clipboard.SetText(PromptsFormatter.Format(prs.ToList()));
         });
+
+        public void ReIndex()
+        {
+            for (var i = 0; i < Prompts.Count; i++)
+            {
+                Prompts[i].LineNumber = i + 1;
+            }
+        }
     }
 }
