@@ -110,6 +110,8 @@ namespace PromptNote.ViewModels
                 ContainsOutput = false,
             });
 
+            PromptsViewModel.ReIndex();
+
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group1", });
             PromptGroupViewModel.PromptGroups.Add(
                 new PromptGroup()

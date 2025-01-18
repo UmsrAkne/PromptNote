@@ -168,7 +168,7 @@ namespace PromptNote.Behaviors
                             listBox.SelectedIndex = index + 1;
                             listBox.SelectedItem = item;
 
-                            // vm.ReIndex(items);
+                            vm.PromptsViewModel.ReIndex();
                         }
 
                         break;
@@ -189,7 +189,7 @@ namespace PromptNote.Behaviors
                             listBox.SelectedIndex = index - 1;
                             listBox.SelectedItem = item;
 
-                            // vm.ReIndex(items);
+                            vm.PromptsViewModel.ReIndex();
                         }
 
                         break;
@@ -225,6 +225,7 @@ namespace PromptNote.Behaviors
 
                                 listBox.SelectedIndex = index;
                                 listBox.SelectedItem = items[index];
+                                vm.PromptsViewModel.ReIndex();
                             }
                         }
                     }
