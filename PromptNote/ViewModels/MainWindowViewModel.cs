@@ -110,6 +110,8 @@ namespace PromptNote.ViewModels
                 ContainsOutput = false,
             });
 
+            PromptsViewModel.Prompts.Add(new Prompt("{dynamic|prompt}"));
+
             PromptsViewModel.ReIndex();
 
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group1", });
