@@ -44,10 +44,29 @@ namespace PromptNote.Models
                 var b = baseLines[i];
                 var a = i <= additionalLines.Count - 1 ? additionalLines[i] : new List<Prompt>();
 
+                if (AreOutputsEquivalent(a, b))
+                {
+                    result.AddRange(b);
+                    continue;
+                }
+
                 result.AddRange(Merge(b, a));
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// ２つのリストを比較し、２つのリストが同じ出力をするかどうかを返します。２つのリストに入っているオブジェクトが同じであるかは問いません
+        /// </summary>
+        /// <param name="a">比較対象のリスト1。</param>
+        /// <param name="b">比較対象のリスト2。</param>
+        /// <returns>PromptFormatter.Format の出力が同じであるか</returns>
+        public static bool AreOutputsEquivalent(List<Prompt> a, List<Prompt> b)
+        {
+            var oa = PromptsFormatter.Format(a);
+            var ob = PromptsFormatter.Format(b);
+            return string.Equals(oa, ob);
         }
 
         private static List<Prompt> Merge(List<Prompt> basePrompts, List<Prompt> additionalPrompts)
