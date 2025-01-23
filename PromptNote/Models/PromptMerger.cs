@@ -69,6 +69,38 @@ namespace PromptNote.Models
             return string.Equals(oa, ob);
         }
 
+        /// <summary>
+        /// 入力されたプロンプトのリストを LineBreak の箇所で分割し、Prompt のリストのリストを生成します。
+        /// </summary>
+        /// <param name="target">分割するリストを入力します。</param>
+        /// <returns>入力されたリストを改行の地点で分割したリスト。改行部分は分割後のリストの末尾に配置されます。</returns>
+        public static List<List<Prompt>> SplitPrompts(List<Prompt> target)
+        {
+            var lists = new List<List<Prompt>>();
+            var l = new List<Prompt>();
+            foreach (var p in target)
+            {
+                l.Add(p);
+                if (p == null)
+                {
+                    continue;
+                }
+
+                if (p.Type == PromptType.LineBreak)
+                {
+                    lists.Add(l.ToList());
+                    l.Clear();
+                }
+            }
+
+            if (l.Count != 0)
+            {
+                lists.Add(l);
+            }
+
+            return lists;
+        }
+
         private static List<Prompt> Merge(List<Prompt> basePrompts, List<Prompt> additionalPrompts)
         {
             var list = new List<Prompt>();
@@ -127,38 +159,6 @@ namespace PromptNote.Models
             }
 
             return list.Where(p => p != null).ToList();
-        }
-
-        /// <summary>
-        /// 入力されたプロンプトのリストを LineBreak の箇所で分割し、Prompt のリストのリストを生成します。
-        /// </summary>
-        /// <param name="target">分割するリストを入力します。</param>
-        /// <returns>入力されたリストを改行の地点で分割したリスト。改行部分は分割後のリストの末尾に配置されます。</returns>
-        private static List<List<Prompt>> SplitPrompts(List<Prompt> target)
-        {
-            var lists = new List<List<Prompt>>();
-            var l = new List<Prompt>();
-            foreach (var p in target)
-            {
-                l.Add(p);
-                if (p == null)
-                {
-                    continue;
-                }
-
-                if (p.Type == PromptType.LineBreak)
-                {
-                    lists.Add(l.ToList());
-                    l.Clear();
-                }
-            }
-
-            if (l.Count != 0)
-            {
-                lists.Add(l);
-            }
-
-            return lists;
         }
 
         private class PromptComparer : IEqualityComparer<Prompt>
