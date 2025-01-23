@@ -84,5 +84,26 @@ namespace PromptNoteTests.Models
             var actualOutput = PromptMerger.MergePrompts(bps, aps).Select(p => p.Phrase.Value).ToArray();
             CollectionAssert.AreEqual(expectedPrompts, actualOutput);
         }
+
+        [Test]
+        public void AreOutputEquivalentTest()
+        {
+            var bps = new[] { "a", "b", "c", }.Select(p => new Prompt(p)).ToList();
+            var aps = new[] { "a", "b", "c", }.Select(p => new Prompt(p)).ToList();
+            Assert.That(PromptMerger.AreOutputsEquivalent(bps, aps), Is.True);
+        }
+
+        [Test]
+        public void AreOutputEquivalentTest_outputFlagChanged()
+        {
+            var bps = new[] { "a", "bTestB", "d", }.Select(p => new Prompt(p)).ToList();
+            var aps = new[] { "a", "aTestA", "d", }.Select(p => new Prompt(p)).ToList();
+
+            bps[1].ContainsOutput = false;
+            aps[1].ContainsOutput = false;
+
+            // ２番目の要素のフレーズは違うが、出力されないので、等価と判定されるはず。
+            Assert.That(PromptMerger.AreOutputsEquivalent(bps, aps), Is.True);
+        }
     }
 }

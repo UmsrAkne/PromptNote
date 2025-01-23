@@ -11,7 +11,7 @@ namespace PromptNote.Models
             var inParentheses = new List<Prompt>();
             var output = string.Empty;
 
-            foreach (var prompt in prompts)
+            foreach (var prompt in prompts.Where(prompt => prompt is { ContainsOutput: true, }))
             {
                 if (prompt.Type == PromptType.Lora)
                 {
@@ -40,6 +40,11 @@ namespace PromptNote.Models
             if (inParentheses.Count != 0)
             {
                 output += FormatPromptsGroup(inParentheses);
+            }
+
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                return string.Empty;
             }
 
             return output.Substring(0, output.Length - 2);

@@ -36,6 +36,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -45,7 +46,16 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0">
+        <Menu
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+            <MenuItem Header="Function">
+                <MenuItem Command="{Binding PromptsViewModel.SortByOutputSettingCommand}" Header="Sort prompts" />
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
@@ -111,7 +121,7 @@
 
         </Grid>
 
-        <DockPanel Grid.Row="0" Grid.Column="1">
+        <DockPanel Grid.Row="1" Grid.Column="1">
 
             <!--  擬似ヘッダー行  -->
             <Grid Margin="7,2" DockPanel.Dock="Top">
@@ -255,7 +265,7 @@
         </DockPanel>
 
         <Grid
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="2">
 
