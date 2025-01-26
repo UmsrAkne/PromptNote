@@ -21,5 +21,10 @@ namespace PromptNote.Models
         /// ダイナミックプロンプト。
         /// </summary>
         DynamicPrompt = 3,
+
+        /// <summary>
+        /// Phrase が空のプロンプトです。
+        /// </summary>
+        Empty = 4,
     }
 }

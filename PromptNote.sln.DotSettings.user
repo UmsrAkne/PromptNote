@@ -32,5 +32,6 @@
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest.AreOutputEquivalentTest(["a", "b", "c"],["a", "b", "c"])&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptMergerTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.ViewModels.PromptsViewModelTest.SortByOutputSettingCommandTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::429CFAC8-B28C-423B-9170-6FA9239DEA57::net6.0-windows::PromptNoteTests.Models.PromptsFormatterTest.FormatTest_MixedType&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
