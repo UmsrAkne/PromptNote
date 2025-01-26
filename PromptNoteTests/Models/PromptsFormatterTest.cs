@@ -82,5 +82,23 @@ namespace PromptNoteTests.Models
 
             Assert.That(PromptsFormatter.Format(list), Is.EqualTo("(a, b:1.2), <lora:lc:0.5>, (d, e:1.2)"));
         }
+
+        [Test]
+        public void FormatTest_MixedType()
+        {
+            var list = new List<Prompt>()
+            {
+                new ("a"),
+                new ("\r\n"), // lora
+                new ("b"),
+                new (" "), // Empty
+                new ("<lora:lc>"), // lora
+                new ("_"), // Empty
+                new ("d"),
+            };
+
+            var actual = PromptsFormatter.Format(list);
+            Assert.That(actual, Is.EqualTo("a, \r\n, b, , <lora:lc:1>, , d"));
+        }
     }
 }

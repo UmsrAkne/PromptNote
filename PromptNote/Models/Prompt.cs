@@ -15,6 +15,13 @@ namespace PromptNote.Models
 
         public Prompt(string phrase)
         {
+            if (phrase is " " or "_")
+            {
+                Phrase = new Phrase(string.Empty);
+                Type = PromptType.Empty;
+                return;
+            }
+
             if (Regex.IsMatch(phrase, "{.*|.*}"))
             {
                 // ダイナミックプロンプトと判別された場合は、フレーズのフォーマットを整えて、ワードをソートします。
@@ -77,6 +84,11 @@ namespace PromptNote.Models
             if (Type == PromptType.LineBreak)
             {
                 return Environment.NewLine;
+            }
+
+            if (Type == PromptType.Empty)
+            {
+                return string.Empty;
             }
 
             return Phrase.Value;
