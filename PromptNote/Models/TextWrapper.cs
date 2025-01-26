@@ -35,7 +35,7 @@ namespace PromptNote.Models
         private void SetVersion()
         {
             const int major = 1;
-            const int minor = 9;
+            const int minor = 10;
             const int patch = 0;
             const string date = "20250123";
             const string suffix = "a";
