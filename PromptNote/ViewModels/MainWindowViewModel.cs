@@ -53,7 +53,7 @@ namespace PromptNote.ViewModels
 
             if (p != null)
             {
-                PromptsViewModel.Prompts.Add(p);
+                PromptsViewModel.AddItem(p);
             }
 
             InputPrompt = new Prompt();
@@ -69,8 +69,8 @@ namespace PromptNote.ViewModels
             var newList = PromptParser.Parse(InputText);
             var oldList = PromptsViewModel.Prompts.ToList();
 
-            PromptsViewModel.Prompts
-                = new ObservableCollection<Prompt>(PromptMerger.MergePrompts(oldList, newList));
+            PromptsViewModel.SetItems(
+                new ObservableCollection<Prompt>(PromptMerger.MergePrompts(oldList, newList)));
 
             InputText = string.Empty;
         });
@@ -83,34 +83,34 @@ namespace PromptNote.ViewModels
         {
             if (PromptGroupViewModel.SelectedItem != null)
             {
-                PromptsViewModel.Prompts = new ObservableCollection<Prompt>(PromptGroupViewModel.SelectedItem.Prompts);
+                PromptsViewModel.SetItems(new ObservableCollection<Prompt>(PromptGroupViewModel.SelectedItem.Prompts));
             }
         });
 
         [Conditional("DEBUG")]
         private void SetDummies()
         {
-            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = new Phrase("test1"), });
+            PromptsViewModel.AddItem(new Prompt() { Phrase = new Phrase("test1"), });
 
-            PromptsViewModel.Prompts.Add(new Prompt()
+            PromptsViewModel.AddItem(new Prompt()
                 { Phrase = new Phrase("test2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
 
-            PromptsViewModel.Prompts.Add(new Prompt()
+            PromptsViewModel.AddItem(new Prompt()
             {
                 Phrase = new Phrase("test3"), Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
-            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = new Phrase("test4"), });
-            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = new Phrase("test5longLongLongLongLongLongLongText"), });
-            PromptsViewModel.Prompts.Add(new Prompt() { Phrase = new Phrase("test6"), });
+            PromptsViewModel.AddItem(new Prompt() { Phrase = new Phrase("test4"), });
+            PromptsViewModel.AddItem(new Prompt() { Phrase = new Phrase("test5longLongLongLongLongLongLongText"), });
+            PromptsViewModel.AddItem(new Prompt() { Phrase = new Phrase("test6"), });
 
-            PromptsViewModel.Prompts.Add(new Prompt()
+            PromptsViewModel.AddItem(new Prompt()
             {
                 Phrase = new Phrase("test7"), Tags = new List<Tag>() { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
 
-            PromptsViewModel.Prompts.Add(new Prompt("{dynamic|prompt}"));
+            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt}"));
 
             PromptsViewModel.ReIndex();
 

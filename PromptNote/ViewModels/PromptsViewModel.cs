@@ -12,19 +12,19 @@ namespace PromptNote.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class PromptsViewModel : BindableBase
     {
-        private ObservableCollection<Prompt> prompts;
+        private ReadOnlyObservableCollection<Prompt> prompts;
 
         public PromptsViewModel()
         {
-            Prompts = new ObservableCollection<Prompt>();
+            Prompts = new ReadOnlyObservableCollection<Prompt>(OriginalItems);
         }
 
-        public ObservableCollection<Prompt> Prompts
+        public ReadOnlyObservableCollection<Prompt> Prompts
         {
             get => prompts;
-            set
+            private set
             {
-                CursorManager.Items = value;
+                CursorManager.Items = OriginalItems;
                 SetProperty(ref prompts, value);
             }
         }
@@ -61,8 +61,23 @@ namespace PromptNote.ViewModels
                 }
             }
 
-            Prompts = new ObservableCollection<Prompt>(results);
+            SetItems(new ObservableCollection<Prompt>(results));
         });
+
+        private ObservableCollection<Prompt> OriginalItems { get; set; } = new ();
+
+        public void SetItems(ObservableCollection<Prompt> items)
+        {
+            OriginalItems = items;
+            Prompts = new ReadOnlyObservableCollection<Prompt>(OriginalItems);
+            ReIndex();
+        }
+
+        public void AddItem(Prompt item)
+        {
+            OriginalItems.Add(item);
+            ReIndex();
+        }
 
         public void ReIndex()
         {
