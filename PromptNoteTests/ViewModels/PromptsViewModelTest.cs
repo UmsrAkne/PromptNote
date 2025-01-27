@@ -23,7 +23,7 @@ namespace PromptNoteTests.ViewModels
                 new ("g"),
             };
 
-            vm.Prompts = new ObservableCollection<Prompt>(list);
+            vm.SetItems(new ObservableCollection<Prompt>(list));
             vm.SortByOutputSettingCommand.Execute();
             var actual = vm.Prompts.Select(p => p.Phrase.Value);
             var excepted = new[] { "a", "c", "b", Environment.NewLine, "d", "g", "e", "f", };
