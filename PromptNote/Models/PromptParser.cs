@@ -7,7 +7,44 @@ namespace PromptNote.Models
 {
     public static class PromptParser
     {
-        public static List<Prompt> Parse(string text)
+        /// <summary>
+        /// 引数に渡されたテキストを、改行ごとに区切ったあとでプロンプトのリストに変換します。
+        /// </summary>
+        /// <param name="text">プロンプトのリストを表すテキスト。</param>
+        /// <returns>テキストからパースしたプロンプトのリスト。</returns>
+        public static List<Prompt> ParseWithLineBreaks(string text)
+        {
+            var delimiters = new[] { "\r\n", "\r", "\n", };
+            var lines = text.Split(delimiters, StringSplitOptions.None);
+            var result = new List<Prompt>();
+
+            for (var index = 0; index < lines.Length; index++)
+            {
+                var line = lines[index];
+                var l = line.Trim();
+                if (l.LastOrDefault() == ',')
+                {
+                    l = l[..^1];
+                }
+
+                var resultLine = Parse(l);
+                if (resultLine.Count == 1 && resultLine.First().Phrase.Value == string.Empty)
+                {
+                    result.Add(new Prompt(Environment.NewLine));
+                    continue;
+                }
+
+                result.AddRange(resultLine);
+                if (index < lines.Length - 1)
+                {
+                    result.Add(new Prompt(Environment.NewLine));
+                }
+            }
+
+            return result;
+        }
+
+        private static List<Prompt> Parse(string text)
         {
             var parentheses = new List<char>();
             var inParentheses = string.Empty;

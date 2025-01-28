@@ -49,7 +49,7 @@ namespace PromptNote.ViewModels
                 return;
             }
 
-            var p = PromptParser.Parse(InputPrompt.Phrase.Value).FirstOrDefault();
+            var p = PromptParser.ParseWithLineBreaks(InputPrompt.Phrase.Value).FirstOrDefault();
 
             if (p != null)
             {
@@ -66,7 +66,7 @@ namespace PromptNote.ViewModels
                 return;
             }
 
-            var newList = PromptParser.Parse(InputText);
+            var newList = PromptParser.ParseWithLineBreaks(InputText);
             var oldList = PromptsViewModel.Prompts.ToList();
 
             PromptsViewModel.SetItems(
