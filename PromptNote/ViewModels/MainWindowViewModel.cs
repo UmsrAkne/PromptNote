@@ -112,6 +112,15 @@ namespace PromptNote.ViewModels
 
             PromptsViewModel.AddItem(new Prompt("{dynamic|prompt}"));
 
+            PromptsViewModel.AddItem(new Prompt("\r\n"));
+
+            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt2}"));
+
+            PromptsViewModel.AddItem(new Prompt("\r\n"));
+            PromptsViewModel.AddItem(new Prompt("\r\n"));
+
+            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt3}"));
+
             PromptsViewModel.ReIndex();
 
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group1", });
