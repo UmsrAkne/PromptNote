@@ -16,6 +16,12 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding PromptGroupViewModel.LoadGroupsAsyncCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Window.InputBindings>
         <KeyBinding
             Key="Enter"

@@ -61,6 +61,8 @@ namespace PromptNote.Models
         {
         }
 
+        public int Id { get; set; }
+
         public Phrase Phrase { get => phrase; set => SetProperty(ref phrase, value); }
 
         public double Strength { get => strength; set => SetProperty(ref strength, value); }

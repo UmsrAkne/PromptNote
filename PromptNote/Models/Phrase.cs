@@ -1,3 +1,4 @@
+using System.Linq;
 using Prism.Mvvm;
 
 namespace PromptNote.Models
@@ -18,7 +19,15 @@ namespace PromptNote.Models
 
         public string Value
         {
-            get => val;
+            get
+            {
+                if (new[] { "\r\n", "\n", "\r", }.Contains(val))
+                {
+                    return "\\r\\n";
+                }
+
+                return val;
+            }
             set => SetProperty(ref val, value);
         }
 
