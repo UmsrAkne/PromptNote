@@ -24,8 +24,7 @@ namespace PromptNote.ViewModels
             // xaml プレビューで使われるデフォルトコンストラクタで作られた、当インスタンスは containerProvider に null が入力される。
             if (containerProvider != null)
             {
-                PromptGroupRepository = containerProvider.Resolve<IPromptGroupRepository>();
-                PromptGroups = new ObservableCollection<PromptGroup>(PromptGroupRepository.GetAllAsync().Result);
+                PromptGroupService = containerProvider.Resolve<PromptGroupService>();
             }
         }
 
@@ -54,8 +53,9 @@ namespace PromptNote.ViewModels
         {
             var pg = new PromptGroup() { Name = InputName, CreatedAt = DateTime.Now, };
             PromptGroups.Add(pg);
-            await PromptGroupRepository.AddAsync(pg);
+            await PromptGroupService.AddAsync(pg);
             InputName = string.Empty;
+            await LoadGroupsAsyncCommand.ExecuteAsync();
         });
 
         public DelegateCommand<string> LoadImageCommand => new DelegateCommand<string>(path =>
@@ -88,9 +88,18 @@ namespace PromptNote.ViewModels
 
         public AsyncDelegateCommand SaveAsyncCommand => new AsyncDelegateCommand(async () =>
         {
-            await PromptGroupRepository.SaveChangesAsync();
+            // await PromptGroupRepository.SaveChangesAsync();
         });
 
-        private IPromptGroupRepository PromptGroupRepository { get; }
+        public AsyncDelegateCommand LoadGroupsAsyncCommand => new AsyncDelegateCommand(async () =>
+        {
+            if (PromptGroupService != null)
+            {
+                var r = await PromptGroupService.GetAllAsync();
+                PromptGroups = new ObservableCollection<PromptGroup>(r);
+            }
+        });
+
+        private PromptGroupService PromptGroupService { get; set; }
     }
 }

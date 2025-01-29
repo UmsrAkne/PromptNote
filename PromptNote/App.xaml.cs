@@ -20,6 +20,7 @@ namespace PromptNote
         {
             containerRegistry.RegisterDialog<TextInputPage, TextInputPageViewModel>();
             containerRegistry.RegisterInstance<IPromptGroupRepository>(new JsonPromptGroupRepository("PromptGroups.json"));
+            containerRegistry.RegisterInstance(new PromptGroupService());
         }
     }
 }

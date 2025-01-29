@@ -85,6 +85,7 @@ namespace PromptNote.Models.Dbs
 
             try
             {
+                // return new List<T>();
                 var json = await File.ReadAllTextAsync(filePath);
                 return JsonSerializer.Deserialize<List<T>>(json) ?? new List<T>();
             }
