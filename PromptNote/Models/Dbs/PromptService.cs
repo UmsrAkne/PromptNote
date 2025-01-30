@@ -1,18 +1,22 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PromptNote.Models.Dbs
 {
     public class PromptService
     {
-        public IRepository<Prompt> Repository { get; set; } = new JsonRepository<Prompt>("prompts.json");
+        private IRepository<Prompt> Repository { get; set; } = new JsonRepository<Prompt>("prompts.json");
 
         public void SaveChanges()
         {
         }
 
-        public IEnumerable<Prompt> LoadPromptsByGroupId()
+        public async Task<IEnumerable<Prompt>> LoadPromptsByGroupId(int groupId)
         {
-            return new List<Prompt>();
+            var all = await Repository.GetAllAsync();
+            var filtering = all.Where(p => p.GroupId == groupId);
+            return filtering;
         }
     }
 }
