@@ -6,6 +6,7 @@ using System.Windows;
 using Prism.Commands;
 using Prism.Mvvm;
 using PromptNote.Models;
+using PromptNote.Models.Dbs;
 
 namespace PromptNote.ViewModels
 {
@@ -65,6 +66,8 @@ namespace PromptNote.ViewModels
         });
 
         private ObservableCollection<Prompt> OriginalItems { get; set; } = new ();
+
+        private PromptService PromptService { get; set; } = new ();
 
         public void SetItems(ObservableCollection<Prompt> items)
         {

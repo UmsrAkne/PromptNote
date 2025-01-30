@@ -87,6 +87,15 @@ namespace PromptNote.ViewModels
             }
         });
 
+        public AsyncDelegateCommand AppInitializeAsyncCommand => new AsyncDelegateCommand(async () =>
+        {
+            if (PromptGroupViewModel.PromptGroupService != null)
+            {
+                var r = await PromptGroupViewModel.PromptGroupService.GetAllAsync();
+                PromptGroupViewModel.PromptGroups = new ObservableCollection<PromptGroup>(r);
+            }
+        });
+
         [Conditional("DEBUG")]
         private void SetDummies()
         {

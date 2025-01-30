@@ -46,6 +46,8 @@ namespace PromptNote.ViewModels
 
         public bool CanGroupAddition => !string.IsNullOrWhiteSpace(InputName);
 
+        public PromptGroupService PromptGroupService { get; set; }
+
         /// <summary>
         /// InputName に入力中のテキストを名前とした PromptGroup をリストに追加し、InputName を空文字で初期化します。
         /// </summary>
@@ -91,7 +93,7 @@ namespace PromptNote.ViewModels
             // await PromptGroupRepository.SaveChangesAsync();
         });
 
-        public AsyncDelegateCommand LoadGroupsAsyncCommand => new AsyncDelegateCommand(async () =>
+        private AsyncDelegateCommand LoadGroupsAsyncCommand => new AsyncDelegateCommand(async () =>
         {
             if (PromptGroupService != null)
             {
@@ -99,7 +101,5 @@ namespace PromptNote.ViewModels
                 PromptGroups = new ObservableCollection<PromptGroup>(r);
             }
         });
-
-        private PromptGroupService PromptGroupService { get; set; }
     }
 }
