@@ -18,7 +18,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding PromptGroupViewModel.LoadGroupsAsyncCommand}" />
+            <i:InvokeCommandAction Command="{Binding AppInitializeAsyncCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 

@@ -1,16 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PromptNote.Models.Dbs
 {
-    public class JsonRepository<T> : IRepository<T>
+    public class JsonRepository<T> : IRepository<T>, IDisposable
     where T : class
     {
         private readonly string filePath;
+
+        private readonly SemaphoreSlim semaphoreSlim = new(1, 1);
 
         public JsonRepository(string filePath)
         {
@@ -40,9 +44,28 @@ namespace PromptNote.Models.Dbs
 
         public async Task AddAsync(T entity)
         {
-            var data = await LoadDataAsync();
-            data.Add(entity);
-            await SaveDataAsync(data);
+            Debug.WriteLine($"{GetId(entity)}, {entity}");
+
+            var newId = GetId(entity);
+            await semaphoreSlim.WaitAsync();
+
+            try
+            {
+                var data = await LoadDataAsync();
+
+                if (data.Any(d => GetId(d) == newId))
+                {
+                    Debug.WriteLine($"入力したアイテムの ID が重複しています。ID={newId}");
+                    return;
+                }
+
+                data.Add(entity);
+                await SaveDataAsync(data);
+            }
+            finally
+            {
+                semaphoreSlim.Release();
+            }
         }
 
         public async Task UpdateAsync(T entity)
@@ -63,6 +86,17 @@ namespace PromptNote.Models.Dbs
             var data = await LoadDataAsync();
             data.RemoveAll(e => GetId(e) == GetId(entity));
             await SaveDataAsync(data);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            semaphoreSlim.Dispose();
         }
 
         private int GetId(T entity)
