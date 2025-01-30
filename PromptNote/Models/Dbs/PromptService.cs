@@ -12,6 +12,11 @@ namespace PromptNote.Models.Dbs
         {
         }
 
+        public async Task AddAsync(Prompt item)
+        {
+            await Repository.AddAsync(item);
+        }
+
         public async Task<IEnumerable<Prompt>> LoadPromptsByGroupId(int groupId)
         {
             var all = await Repository.GetAllAsync();

@@ -32,6 +32,8 @@ namespace PromptNote.ViewModels
 
         public CursorManager CursorManager { get; } = new ();
 
+        public PromptService PromptService { get; set; } = new ();
+
         /// <summary>
         /// このビューモデルが持つ Prompts から、実際に入力可能な形式のテキストを生成してクリップボードにコピーします。
         /// </summary>
@@ -67,8 +69,6 @@ namespace PromptNote.ViewModels
 
         private ObservableCollection<Prompt> OriginalItems { get; set; } = new ();
 
-        private PromptService PromptService { get; set; } = new ();
-
         public void SetItems(ObservableCollection<Prompt> items)
         {
             OriginalItems = items;
@@ -78,6 +78,7 @@ namespace PromptNote.ViewModels
 
         public void AddItem(Prompt item)
         {
+            _ = PromptService.AddAsync(item);
             OriginalItems.Add(item);
             ReIndex();
         }
