@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -87,39 +88,68 @@ namespace PromptNote.ViewModels
             }
         });
 
-        [Conditional("DEBUG")]
-        private void SetDummies()
+        public AsyncDelegateCommand AppInitializeAsyncCommand => new AsyncDelegateCommand(async () =>
         {
-            PromptsViewModel.AddItem(new Prompt() { Phrase = new Phrase("test1"), });
+            if (PromptGroupViewModel.PromptGroupService != null)
+            {
+                var r = await PromptGroupViewModel.PromptGroupService.GetAllAsync();
+                PromptGroupViewModel.PromptGroups = new ObservableCollection<PromptGroup>(r);
+            }
+        });
+
+        [Conditional("DEBUG")]
+        private async void SetDummies()
+        {
+            PromptsViewModel.AddItem(new Prompt() { Id = 1, Phrase = new Phrase("test1"), });
 
             PromptsViewModel.AddItem(new Prompt()
-                { Phrase = new Phrase("test2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
+                { Id = 2, Phrase = new Phrase("test2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
 
             PromptsViewModel.AddItem(new Prompt()
             {
-                Phrase = new Phrase("test3"), Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
+                Id = 3,
+                Phrase = new Phrase("test3"),
+                Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
-            PromptsViewModel.AddItem(new Prompt() { Phrase = new Phrase("test4"), });
-            PromptsViewModel.AddItem(new Prompt() { Phrase = new Phrase("test5longLongLongLongLongLongLongText"), });
-            PromptsViewModel.AddItem(new Prompt() { Phrase = new Phrase("test6"), });
 
             PromptsViewModel.AddItem(new Prompt()
             {
-                Phrase = new Phrase("test7"), Tags = new List<Tag>() { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
+                Id = 4,
+                Phrase = new Phrase("test4"),
+            });
+
+            PromptsViewModel.AddItem(new Prompt()
+            {
+                Id = 5,
+                Phrase = new Phrase("test5longLongLongLongLongLongLongText"),
+            });
+
+            PromptsViewModel.AddItem(new Prompt()
+            {
+                Id = 6,
+                Phrase = new Phrase("test6"),
+            });
+
+            PromptsViewModel.AddItem(new Prompt()
+            {
+                Id = 7,
+                Phrase = new Phrase("test7"),
+                Tags = new List<Tag>()
+                    { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
 
-            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt}"));
+            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt}") { Id = 8, });
 
-            PromptsViewModel.AddItem(new Prompt("\r\n"));
+            PromptsViewModel.AddItem(new Prompt("\r\n") { Id = 9, });
 
-            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt2}"));
+            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt2}") { Id = 10, });
 
-            PromptsViewModel.AddItem(new Prompt("\r\n"));
-            PromptsViewModel.AddItem(new Prompt("\r\n"));
+            PromptsViewModel.AddItem(new Prompt("\r\n") { Id = 11, });
+            PromptsViewModel.AddItem(new Prompt("\r\n") { Id = 12, });
 
-            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt3}"));
+            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt3}") { Id = 13, });
 
             PromptsViewModel.ReIndex();
 
@@ -131,19 +161,29 @@ namespace PromptNote.ViewModels
                     {
                         new ()
                         {
-                            Phrase = new Phrase("PromptGroup text1"), Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
+                            Id = 14,
+                            Phrase = new Phrase("PromptGroup text1"),
+                            Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                             ContainsOutput = false,
                         },
 
                         new ()
                         {
-                            Phrase = new Phrase("PromptGroup text2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
+                            Id = 15,
+                            Phrase = new Phrase("PromptGroup text2"),
+                            Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                             ContainsOutput = false,
                         },
                     },
                 });
 
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group3", });
+
+            // リストを初期化
+            PromptsViewModel.SetItems(new ObservableCollection<Prompt>());
+
+            var ll = await PromptsViewModel.PromptService.LoadPromptsByGroupId(0);
+            PromptsViewModel.SetItems(new ObservableCollection<Prompt>(ll));
         }
     }
 }

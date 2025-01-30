@@ -12,6 +12,8 @@ namespace PromptNote.Models
         private double strength = 1.0;
         private bool containsOutput = true;
         private int lineNumber;
+        private int groupId;
+        private int index;
 
         public Prompt(string phrase)
         {
@@ -68,6 +70,10 @@ namespace PromptNote.Models
         public double Strength { get => strength; set => SetProperty(ref strength, value); }
 
         public List<Tag> Tags { get; set; } = new ();
+
+        public int GroupId { get => groupId; set => SetProperty(ref groupId, value); }
+
+        public int Index { get => index; set => SetProperty(ref index, value); }
 
         public bool ContainsOutput { get => containsOutput; set => SetProperty(ref containsOutput, value); }
 

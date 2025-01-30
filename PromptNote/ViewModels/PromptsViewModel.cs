@@ -6,6 +6,7 @@ using System.Windows;
 using Prism.Commands;
 using Prism.Mvvm;
 using PromptNote.Models;
+using PromptNote.Models.Dbs;
 
 namespace PromptNote.ViewModels
 {
@@ -30,6 +31,8 @@ namespace PromptNote.ViewModels
         }
 
         public CursorManager CursorManager { get; } = new ();
+
+        public PromptService PromptService { get; set; } = new ();
 
         /// <summary>
         /// このビューモデルが持つ Prompts から、実際に入力可能な形式のテキストを生成してクリップボードにコピーします。
@@ -75,6 +78,7 @@ namespace PromptNote.ViewModels
 
         public void AddItem(Prompt item)
         {
+            _ = PromptService.AddAsync(item);
             OriginalItems.Add(item);
             ReIndex();
         }
