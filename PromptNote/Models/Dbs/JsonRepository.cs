@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -41,6 +42,13 @@ namespace PromptNote.Models.Dbs
         public async Task AddAsync(T entity)
         {
             var data = await LoadDataAsync();
+            if (data.Any(d => GetId(d) == GetId(entity)))
+            {
+                Debug.WriteLine($"入力したアイテムの id が重複しています。id={GetId(entity)}");
+                Debug.WriteLine("アイテムを追加せずに処理を終了します。");
+                return;
+            }
+
             data.Add(entity);
             await SaveDataAsync(data);
         }
