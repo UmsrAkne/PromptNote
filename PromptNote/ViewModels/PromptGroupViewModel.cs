@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -88,10 +89,7 @@ namespace PromptNote.ViewModels
             });
         });
 
-        public AsyncDelegateCommand SaveAsyncCommand => new AsyncDelegateCommand(async () =>
-        {
-            // await PromptGroupRepository.SaveChangesAsync();
-        });
+        public AsyncDelegateCommand SaveAsyncCommand => new AsyncDelegateCommand(() => Task.CompletedTask);
 
         private AsyncDelegateCommand LoadGroupsAsyncCommand => new AsyncDelegateCommand(async () =>
         {
