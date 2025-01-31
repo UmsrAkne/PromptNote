@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace PromptNote.Models.Dbs
 {
+    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public class JsonRepository<T> : IRepository<T>, IDisposable
     where T : class
     {
