@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Prism.Mvvm;
+using PromptNote.Models.Dbs;
 
 namespace PromptNote.Models
 {
-    public class Prompt : BindableBase
+    public class Prompt : BindableBase, IEntity
     {
         private Phrase phrase = new ();
         private double strength = 1.0;
