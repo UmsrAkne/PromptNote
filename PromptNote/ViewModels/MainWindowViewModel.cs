@@ -42,7 +42,7 @@ namespace PromptNote.ViewModels
         /// <summary>
         /// 入力中のプロンプトを PromptsViewModel のリストに追加します。追加に成功した場合は入力済みのプロンプトの情報を初期化します。
         /// </summary>
-        public DelegateCommand AddPromptCommand => new DelegateCommand(() =>
+        public AsyncDelegateCommand AddPromptCommand => new (async () =>
         {
             if (InputPrompt == null || string.IsNullOrWhiteSpace(InputPrompt.Phrase.Value))
             {
@@ -53,7 +53,7 @@ namespace PromptNote.ViewModels
 
             if (p != null)
             {
-                PromptsViewModel.AddItem(p);
+                await PromptsViewModel.AddItemAsync(p);
             }
 
             InputPrompt = new Prompt();
@@ -99,12 +99,12 @@ namespace PromptNote.ViewModels
         [Conditional("DEBUG")]
         private async void SetDummies()
         {
-            PromptsViewModel.AddItem(new Prompt() { Id = 1, Phrase = new Phrase("test1"), });
+            await PromptsViewModel.AddItemAsync(new Prompt() { Id = 1, Phrase = new Phrase("test1"), });
 
-            PromptsViewModel.AddItem(new Prompt()
+            await PromptsViewModel.AddItemAsync(new Prompt()
                 { Id = 2, Phrase = new Phrase("test2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
 
-            PromptsViewModel.AddItem(new Prompt()
+            await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 3,
                 Phrase = new Phrase("test3"),
@@ -112,25 +112,25 @@ namespace PromptNote.ViewModels
                 ContainsOutput = false,
             });
 
-            PromptsViewModel.AddItem(new Prompt()
+            await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 4,
                 Phrase = new Phrase("test4"),
             });
 
-            PromptsViewModel.AddItem(new Prompt()
+            await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 5,
                 Phrase = new Phrase("test5longLongLongLongLongLongLongText"),
             });
 
-            PromptsViewModel.AddItem(new Prompt()
+            await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 6,
                 Phrase = new Phrase("test6"),
             });
 
-            PromptsViewModel.AddItem(new Prompt()
+            await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 7,
                 Phrase = new Phrase("test7"),
@@ -139,16 +139,16 @@ namespace PromptNote.ViewModels
                 ContainsOutput = false,
             });
 
-            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt}") { Id = 8, });
+            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt}") { Id = 8, });
 
-            PromptsViewModel.AddItem(new Prompt("\r\n") { Id = 9, });
+            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 9, });
 
-            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt2}") { Id = 10, });
+            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt2}") { Id = 10, });
 
-            PromptsViewModel.AddItem(new Prompt("\r\n") { Id = 11, });
-            PromptsViewModel.AddItem(new Prompt("\r\n") { Id = 12, });
+            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 11, });
+            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 12, });
 
-            PromptsViewModel.AddItem(new Prompt("{dynamic|prompt3}") { Id = 13, });
+            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt3}") { Id = 13, });
 
             PromptsViewModel.ReIndex();
 
