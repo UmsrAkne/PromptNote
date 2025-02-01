@@ -45,16 +45,26 @@ namespace PromptNote.Models.Dbs
 
         public async Task AddAsync(T entity)
         {
-            Debug.WriteLine($"{GetId(entity)}, {entity}");
+            Debug.WriteLine($"{entity.Id}, {entity}");
 
-            var newId = GetId(entity);
+            if (entity.Id == 0)
+            {
+                var all = await GetAllAsync();
+                var enumerable = all.ToList();
+
+                entity.Id = enumerable.Count() != 0
+                    ? enumerable.Select(d => d.Id).Max() + 1
+                    : 1;
+            }
+
+            var newId = entity.Id;
             await semaphoreSlim.WaitAsync();
 
             try
             {
                 var data = await LoadDataAsync();
 
-                if (data.Any(d => GetId(d) == newId))
+                if (data.Any(d => d.Id == newId))
                 {
                     Debug.WriteLine($"入力したアイテムの ID が重複しています。ID={newId}");
                     return;
