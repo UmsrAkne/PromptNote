@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -76,9 +77,9 @@ namespace PromptNote.ViewModels
             ReIndex();
         }
 
-        public void AddItem(Prompt item)
+        public async Task AddItemAsync(Prompt item)
         {
-            _ = PromptService.AddAsync(item);
+            await PromptService.AddAsync(item);
             OriginalItems.Add(item);
             ReIndex();
         }

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Prism.Mvvm;
+using PromptNote.Models.Dbs;
 
 namespace PromptNote.Models
 {
-    public class PromptGroup : BindableBase
+    public class PromptGroup : BindableBase, IEntity
     {
         private string name;
         private int id;
