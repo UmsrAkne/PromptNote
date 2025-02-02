@@ -21,6 +21,13 @@ namespace PromptNote.Models
                     continue;
                 }
 
+                if (prompt.Type == PromptType.LineBreak)
+                {
+                    inParentheses.Clear();
+                    output += Environment.NewLine;
+                    continue;
+                }
+
                 if (Math.Abs(prompt.Strength - 1.0) < 0.01)
                 {
                     if (inParentheses.Count != 0)
