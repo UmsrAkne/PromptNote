@@ -89,7 +89,7 @@ namespace PromptNoteTests.Models
             var list = new List<Prompt>()
             {
                 new ("a"),
-                new ("\r\n"), // lora
+                new ("\r\n"), // LineBreak
                 new ("b"),
                 new (" "), // Empty
                 new ("<lora:lc>"), // lora

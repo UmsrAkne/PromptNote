@@ -14,7 +14,7 @@ namespace PromptNoteTests.Models
         [TestCase("t0, t1, \n t2 \n\n t3,", new[] { "t0", "t1", "\r\n", "t2", "\r\n", "\r\n", "t3", })] // 改行２連続。
         public void ParseTest_Normal(string input, string[] expectedOutputs)
         {
-            var actualOutput = PromptParser.ParseWithLineBreaks(input).Select(p => p.Phrase.Value);
+            var actualOutput = PromptParser.ParseWithLineBreaks(input).Select(p => p.ToString());
             CollectionAssert.AreEqual(expectedOutputs, actualOutput);
         }
 
