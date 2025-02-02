@@ -36,8 +36,8 @@ namespace PromptNote.Models
         {
             const int major = 1;
             const int minor = 10;
-            const int patch = 6;
-            const string date = "20250201";
+            const int patch = 7;
+            const string date = "20250202";
             const string suffix = "a";
 
             Version = $"{major}.{minor}.{patch} ({date}{suffix})";
