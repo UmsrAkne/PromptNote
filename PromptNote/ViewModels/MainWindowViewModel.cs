@@ -99,14 +99,15 @@ namespace PromptNote.ViewModels
         [Conditional("DEBUG")]
         private async void SetDummies()
         {
-            await PromptsViewModel.AddItemAsync(new Prompt() { Id = 1, Phrase = new Phrase("test1"), });
+            await PromptsViewModel.AddItemAsync(new Prompt() { Id = 1, Phrase = new Phrase("test1"), GroupId = 1, });
 
             await PromptsViewModel.AddItemAsync(new Prompt()
-                { Id = 2, Phrase = new Phrase("test2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
+                { Id = 2, GroupId = 1, Phrase = new Phrase("test2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
 
             await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 3,
+                GroupId = 1,
                 Phrase = new Phrase("test3"),
                 Tags = new List<Tag>() { new () { Value = "Tag1", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
@@ -115,40 +116,44 @@ namespace PromptNote.ViewModels
             await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 4,
+                GroupId = 1,
                 Phrase = new Phrase("test4"),
             });
 
             await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 5,
+                GroupId = 1,
                 Phrase = new Phrase("test5longLongLongLongLongLongLongText"),
             });
 
             await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 6,
+                GroupId = 1,
                 Phrase = new Phrase("test6"),
             });
 
             await PromptsViewModel.AddItemAsync(new Prompt()
             {
                 Id = 7,
+                GroupId = 1,
                 Phrase = new Phrase("test7"),
                 Tags = new List<Tag>()
                     { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
 
-            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt}") { Id = 8, });
+            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt}") { Id = 8, GroupId = 1, });
 
-            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 9, });
+            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 9, GroupId = 1, });
 
-            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt2}") { Id = 10, });
+            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt2}") { Id = 10, GroupId = 1,  });
 
-            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 11, });
-            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 12, });
+            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 11, GroupId = 1, });
+            await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 12, GroupId = 1, });
 
-            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt3}") { Id = 13, });
+            await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt3}") { Id = 13, GroupId = 1, });
 
             PromptsViewModel.ReIndex();
 

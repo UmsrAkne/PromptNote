@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,11 @@ namespace PromptNote.Models.Dbs
 
         public async Task AddAsync(Prompt item)
         {
+            if (item.GroupId == 0)
+            {
+                throw new ArgumentException($"Group id cannot be 0. Prompt = {item}");
+            }
+
             await Repository.AddAsync(item);
         }
 

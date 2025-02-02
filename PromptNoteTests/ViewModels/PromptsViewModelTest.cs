@@ -25,7 +25,7 @@ namespace PromptNoteTests.ViewModels
 
             vm.SetItems(new ObservableCollection<Prompt>(list));
             vm.SortByOutputSettingCommand.Execute();
-            var actual = vm.Prompts.Select(p => p.Phrase.Value);
+            var actual = vm.Prompts.Select(p => p.ToString());
             var excepted = new[] { "a", "c", "b", Environment.NewLine, "d", "g", "e", "f", };
 
             CollectionAssert.AreEqual(excepted, actual);

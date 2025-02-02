@@ -89,7 +89,7 @@ namespace PromptNoteTests.Models
             var list = new List<Prompt>()
             {
                 new ("a"),
-                new ("\r\n"), // lora
+                new ("\r\n"), // LineBreak
                 new ("b"),
                 new (" "), // Empty
                 new ("<lora:lc>"), // lora
@@ -98,7 +98,7 @@ namespace PromptNoteTests.Models
             };
 
             var actual = PromptsFormatter.Format(list);
-            Assert.That(actual, Is.EqualTo("a, \r\n, b, , <lora:lc:1>, , d"));
+            Assert.That(actual, Is.EqualTo("a, \r\nb, , <lora:lc:1>, , d"));
         }
     }
 }
