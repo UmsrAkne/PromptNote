@@ -183,6 +183,8 @@ namespace PromptNote.ViewModels
 
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group3", });
 
+            await PromptGroupViewModel.LoadGroupsAsyncCommand.ExecuteAsync();
+
             // リストを初期化
             PromptsViewModel.SetItems(new ObservableCollection<Prompt>());
 
