@@ -17,6 +17,7 @@ namespace PromptNote.ViewModels
         private readonly IDialogService dialogService;
         private PromptGroup selectedItem;
         private string inputName;
+        private ObservableCollection<PromptGroup> promptGroups = new ();
 
         public PromptGroupViewModel(IDialogService dialogService, IContainerProvider containerProvider)
         {
@@ -29,7 +30,11 @@ namespace PromptNote.ViewModels
             }
         }
 
-        public ObservableCollection<PromptGroup> PromptGroups { get; set; } = new ();
+        public ObservableCollection<PromptGroup> PromptGroups
+        {
+            get => promptGroups;
+            set => SetProperty(ref promptGroups, value);
+        }
 
         public PromptGroup SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
@@ -55,8 +60,7 @@ namespace PromptNote.ViewModels
         public AsyncDelegateCommand AddGroupAsyncCommand => new AsyncDelegateCommand(async () =>
         {
             var pg = new PromptGroup() { Name = InputName, CreatedAt = DateTime.Now, };
-            PromptGroups.Add(pg);
-            await PromptGroupService.AddAsync(pg);
+            await AddGroupAsync(pg);
             InputName = string.Empty;
             await LoadGroupsAsyncCommand.ExecuteAsync();
         });
@@ -91,7 +95,7 @@ namespace PromptNote.ViewModels
 
         public AsyncDelegateCommand SaveAsyncCommand => new AsyncDelegateCommand(() => Task.CompletedTask);
 
-        private AsyncDelegateCommand LoadGroupsAsyncCommand => new AsyncDelegateCommand(async () =>
+        public AsyncDelegateCommand LoadGroupsAsyncCommand => new AsyncDelegateCommand(async () =>
         {
             if (PromptGroupService != null)
             {
@@ -99,5 +103,12 @@ namespace PromptNote.ViewModels
                 PromptGroups = new ObservableCollection<PromptGroup>(r);
             }
         });
+
+        public async Task AddGroupAsync(PromptGroup group)
+        {
+            group.CreatedAt = DateTime.Now;
+            PromptGroups.Add(group);
+            await PromptGroupService.AddAsync(group);
+        }
     }
 }

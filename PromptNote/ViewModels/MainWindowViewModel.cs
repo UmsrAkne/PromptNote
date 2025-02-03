@@ -53,6 +53,11 @@ namespace PromptNote.ViewModels
 
             if (p != null)
             {
+                if (PromptGroupViewModel.SelectedItem != null)
+                {
+                    p.GroupId = PromptGroupViewModel.SelectedItem.Id;
+                }
+
                 await PromptsViewModel.AddItemAsync(p);
             }
 
@@ -157,7 +162,7 @@ namespace PromptNote.ViewModels
 
             PromptsViewModel.ReIndex();
 
-            PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group1", });
+            PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group1", Id = 2, });
             PromptGroupViewModel.PromptGroups.Add(
                 new PromptGroup()
                 {
@@ -182,6 +187,10 @@ namespace PromptNote.ViewModels
                 });
 
             PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group3", });
+
+            await PromptGroupViewModel.LoadGroupsAsyncCommand.ExecuteAsync();
+
+            PromptGroupViewModel.SelectedItem = PromptGroupViewModel.PromptGroups[0];
 
             // リストを初期化
             PromptsViewModel.SetItems(new ObservableCollection<Prompt>());
