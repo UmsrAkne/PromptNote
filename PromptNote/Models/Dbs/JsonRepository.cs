@@ -66,7 +66,7 @@ namespace PromptNote.Models.Dbs
 
                 if (data.Any(d => d.Id == newId))
                 {
-                    Debug.WriteLine($"入力したアイテムの ID が重複しています。ID={newId}");
+                    Debug.WriteLine($"入力したアイテムの ID が重複しています。ID={newId}, Item={entity}");
                     return;
                 }
 
