@@ -15,9 +15,18 @@ namespace PromptNote.Models.Dbs
         public async Task AddAsync(PromptGroup promptGroup)
         {
             var list = await Repository.GetAllAsync();
-            var maxId = list.OrderByDescending(g => g.Id).Select(g => g.Id).FirstOrDefault();
-            promptGroup.Id = maxId + 1;
+            if (promptGroup.Id == 0)
+            {
+                var maxId = list.OrderByDescending(g => g.Id).Select(g => g.Id).FirstOrDefault();
+                promptGroup.Id = maxId + 1;
+            }
+
             await Repository.AddAsync(promptGroup);
+        }
+
+        public async Task AddRangeAsync(IEnumerable<PromptGroup> promptGroup)
+        {
+            await Repository.AddRangeAsync(promptGroup);
         }
 
         public async Task<IEnumerable<PromptGroup>> GetAllAsync()

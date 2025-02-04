@@ -97,17 +97,27 @@ namespace PromptNote.ViewModels
             if (PromptGroupViewModel.PromptGroupService != null)
             {
                 var r = await PromptGroupViewModel.PromptGroupService.GetAllAsync();
-                PromptGroupViewModel.PromptGroups = new ObservableCollection<PromptGroup>(r);
+                await PromptGroupViewModel.AddGroupsAsync(r);
             }
         });
 
         [Conditional("DEBUG")]
         private async void SetDummies()
         {
-            await PromptsViewModel.AddItemAsync(new Prompt() { Id = 1, Phrase = new Phrase("test1"), GroupId = 1, });
+            await PromptsViewModel.AddItemAsync(new Prompt()
+            {
+                Id = 1,
+                Phrase = new Phrase("test1"),
+                GroupId = 1,
+            });
 
             await PromptsViewModel.AddItemAsync(new Prompt()
-                { Id = 2, GroupId = 1, Phrase = new Phrase("test2"), Tags = new List<Tag>() { new () { Value = "Tag1", }, }, });
+            {
+                Id = 2,
+                GroupId = 1,
+                Phrase = new Phrase("test2"),
+                Tags = new List<Tag>() { new () { Value = "Tag1", }, },
+            });
 
             await PromptsViewModel.AddItemAsync(new Prompt()
             {
@@ -144,29 +154,25 @@ namespace PromptNote.ViewModels
                 Id = 7,
                 GroupId = 1,
                 Phrase = new Phrase("test7"),
-                Tags = new List<Tag>()
-                    { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
+                Tags = new List<Tag>() { new () { Value = "RedTag1", ColorName = "Red", }, new () { Value = "Tag2", }, },
                 ContainsOutput = false,
             });
 
             await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt}") { Id = 8, GroupId = 1, });
-
             await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 9, GroupId = 1, });
-
             await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt2}") { Id = 10, GroupId = 1,  });
-
             await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 11, GroupId = 1, });
             await PromptsViewModel.AddItemAsync(new Prompt("\r\n") { Id = 12, GroupId = 1, });
-
             await PromptsViewModel.AddItemAsync(new Prompt("{dynamic|prompt3}") { Id = 13, GroupId = 1, });
 
             PromptsViewModel.ReIndex();
 
-            PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group1", Id = 2, });
-            PromptGroupViewModel.PromptGroups.Add(
-                new PromptGroup()
+            var groups = new List<PromptGroup>();
+            groups.Add(new PromptGroup { Name = "Test Group1", Id = 2, });
+            groups.Add(new PromptGroup { Name = "Test Group30", Id = 3, });
+            groups.Add(new PromptGroup
                 {
-                    Name = "Test Group2", Prompts = new List<Prompt>()
+                    Name = "Test Group2", Id = 4, Prompts = new List<Prompt>()
                     {
                         new ()
                         {
@@ -186,10 +192,8 @@ namespace PromptNote.ViewModels
                     },
                 });
 
-            PromptGroupViewModel.PromptGroups.Add(new PromptGroup() { Name = "Test Group3", });
-
+            await PromptGroupViewModel.AddGroupsAsync(groups);
             await PromptGroupViewModel.LoadGroupsAsyncCommand.ExecuteAsync();
-
             PromptGroupViewModel.SelectedItem = PromptGroupViewModel.PromptGroups[0];
 
             // リストを初期化

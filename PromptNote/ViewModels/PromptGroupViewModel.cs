@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Ioc;
@@ -17,7 +19,7 @@ namespace PromptNote.ViewModels
         private readonly IDialogService dialogService;
         private PromptGroup selectedItem;
         private string inputName;
-        private ObservableCollection<PromptGroup> promptGroups = new ();
+        private ReadOnlyObservableCollection<PromptGroup> promptGroups = new (new ObservableCollection<PromptGroup>());
 
         public PromptGroupViewModel(IDialogService dialogService, IContainerProvider containerProvider)
         {
@@ -27,13 +29,14 @@ namespace PromptNote.ViewModels
             if (containerProvider != null)
             {
                 PromptGroupService = containerProvider.Resolve<PromptGroupService>();
+                PromptGroups = new ReadOnlyObservableCollection<PromptGroup>(OriginalPromptGroups);
             }
         }
 
-        public ObservableCollection<PromptGroup> PromptGroups
+        public ReadOnlyObservableCollection<PromptGroup> PromptGroups
         {
             get => promptGroups;
-            set => SetProperty(ref promptGroups, value);
+            private set => SetProperty(ref promptGroups, value);
         }
 
         public PromptGroup SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
@@ -100,15 +103,25 @@ namespace PromptNote.ViewModels
             if (PromptGroupService != null)
             {
                 var r = await PromptGroupService.GetAllAsync();
-                PromptGroups = new ObservableCollection<PromptGroup>(r);
+                OriginalPromptGroups = new ObservableCollection<PromptGroup>(r);
+                PromptGroups = new ReadOnlyObservableCollection<PromptGroup>(OriginalPromptGroups);
             }
         });
+
+        private ObservableCollection<PromptGroup> OriginalPromptGroups { get; set; } = new ();
 
         public async Task AddGroupAsync(PromptGroup group)
         {
             group.CreatedAt = DateTime.Now;
-            PromptGroups.Add(group);
+            OriginalPromptGroups.Add(group);
             await PromptGroupService.AddAsync(group);
+        }
+
+        public async Task AddGroupsAsync(IEnumerable<PromptGroup> groups)
+        {
+            var list = groups.ToList();
+            OriginalPromptGroups.AddRange(list);
+            await PromptGroupService.AddRangeAsync(list);
         }
     }
 }
