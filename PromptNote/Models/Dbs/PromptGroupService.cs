@@ -24,6 +24,11 @@ namespace PromptNote.Models.Dbs
             await Repository.AddAsync(promptGroup);
         }
 
+        public async Task AddRangeAsync(IEnumerable<PromptGroup> promptGroup)
+        {
+            await Repository.AddRangeAsync(promptGroup);
+        }
+
         public async Task<IEnumerable<PromptGroup>> GetAllAsync()
         {
             return await Repository.GetAllAsync();

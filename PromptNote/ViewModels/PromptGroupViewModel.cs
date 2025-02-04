@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Ioc;
@@ -118,8 +119,9 @@ namespace PromptNote.ViewModels
 
         public async Task AddGroupsAsync(IEnumerable<PromptGroup> groups)
         {
-            OriginalPromptGroups.AddRange(groups);
-            // await PromptGroupService.AddAsync(groups);
+            var list = groups.ToList();
+            OriginalPromptGroups.AddRange(list);
+            await PromptGroupService.AddRangeAsync(list);
         }
     }
 }

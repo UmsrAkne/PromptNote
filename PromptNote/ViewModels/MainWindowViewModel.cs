@@ -167,9 +167,10 @@ namespace PromptNote.ViewModels
 
             PromptsViewModel.ReIndex();
 
-            await PromptGroupViewModel.AddGroupAsync(new PromptGroup { Name = "Test Group1", Id = 2, });
-            await PromptGroupViewModel.AddGroupAsync(new PromptGroup { Name = "Test Group30", Id = 3, });
-            await PromptGroupViewModel.AddGroupAsync(new PromptGroup
+            var groups = new List<PromptGroup>();
+            groups.Add(new PromptGroup { Name = "Test Group1", Id = 2, });
+            groups.Add(new PromptGroup { Name = "Test Group30", Id = 3, });
+            groups.Add(new PromptGroup
                 {
                     Name = "Test Group2", Id = 4, Prompts = new List<Prompt>()
                     {
@@ -191,6 +192,7 @@ namespace PromptNote.ViewModels
                     },
                 });
 
+            await PromptGroupViewModel.AddGroupsAsync(groups);
             await PromptGroupViewModel.LoadGroupsAsyncCommand.ExecuteAsync();
             PromptGroupViewModel.SelectedItem = PromptGroupViewModel.PromptGroups[0];
 
