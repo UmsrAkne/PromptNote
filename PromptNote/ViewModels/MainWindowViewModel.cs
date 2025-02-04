@@ -97,7 +97,7 @@ namespace PromptNote.ViewModels
             if (PromptGroupViewModel.PromptGroupService != null)
             {
                 var r = await PromptGroupViewModel.PromptGroupService.GetAllAsync();
-                PromptGroupViewModel.PromptGroups = new ObservableCollection<PromptGroup>(r);
+                await PromptGroupViewModel.AddGroupsAsync(r);
             }
         });
 
