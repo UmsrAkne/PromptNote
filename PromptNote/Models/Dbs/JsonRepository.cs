@@ -79,6 +79,48 @@ namespace PromptNote.Models.Dbs
             }
         }
 
+        public async Task AddRangeAsync(IEnumerable<T> entities)
+        {
+            var list = entities.ToList();
+            if (list.Count == 0)
+            {
+                return;
+            }
+
+            var noIds = list.Where(e => e.Id == 0);
+            var maxId = list.Max(e => e.Id);
+
+            foreach (var noId in noIds)
+            {
+                noId.Id = ++maxId;
+            }
+
+            await semaphoreSlim.WaitAsync();
+
+            try
+            {
+                var data = await LoadDataAsync();
+                var dic = data.ToDictionary(e => e.Id, e => e);
+
+                foreach (var entity in list)
+                {
+                    if (dic.ContainsKey(entity.Id))
+                    {
+                        Debug.WriteLine($"入力したアイテムの ID が重複しています。ID={entity.Id}, Item={entity}");
+                        continue;
+                    }
+
+                    data.Add(entity);
+                }
+
+                await SaveDataAsync(data);
+            }
+            finally
+            {
+                semaphoreSlim.Release();
+            }
+        }
+
         public async Task UpdateAsync(T entity)
         {
             var data = await LoadDataAsync();
