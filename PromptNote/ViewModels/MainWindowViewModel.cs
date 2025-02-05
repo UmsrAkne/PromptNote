@@ -64,7 +64,7 @@ namespace PromptNote.ViewModels
             InputPrompt = new Prompt();
         });
 
-        public DelegateCommand MergePromptsCommand => new DelegateCommand(() =>
+        public AsyncDelegateCommand MergePromptsCommand => new AsyncDelegateCommand(async () =>
         {
             if (string.IsNullOrWhiteSpace(InputText))
             {
@@ -73,9 +73,16 @@ namespace PromptNote.ViewModels
 
             var newList = PromptParser.ParseWithLineBreaks(InputText);
             var oldList = PromptsViewModel.Prompts.ToList();
+            var merged = PromptMerger.MergePrompts(oldList, newList);
+            var id = PromptGroupViewModel.SelectedItem?.Id ?? 0;
 
-            PromptsViewModel.SetItems(
-                new ObservableCollection<Prompt>(PromptMerger.MergePrompts(oldList, newList)));
+            foreach (var m in merged)
+            {
+                m.GroupId = id;
+            }
+
+            await PromptsViewModel.SetItemsAsync(
+                new ObservableCollection<Prompt>(merged));
 
             InputText = string.Empty;
         });
