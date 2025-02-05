@@ -23,6 +23,17 @@ namespace PromptNote.Models.Dbs
             await Repository.AddAsync(item);
         }
 
+        public async Task AddRangeAsync(IEnumerable<Prompt> items)
+        {
+            var enumerable = items.ToList();
+            if (enumerable.Any(i => i.GroupId == 0))
+            {
+                throw new ArgumentException($"Group id cannot be 0 (AddRangeAsync)");
+            }
+
+            await Repository.AddRangeAsync(enumerable);
+        }
+
         public async Task<IEnumerable<Prompt>> LoadPromptsByGroupId(int groupId)
         {
             var all = await Repository.GetAllAsync();
