@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PromptNote.Models.Dbs
@@ -14,13 +13,6 @@ namespace PromptNote.Models.Dbs
 
         public async Task AddAsync(PromptGroup promptGroup)
         {
-            var list = await Repository.GetAllAsync();
-            if (promptGroup.Id == 0)
-            {
-                var maxId = list.OrderByDescending(g => g.Id).Select(g => g.Id).FirstOrDefault();
-                promptGroup.Id = maxId + 1;
-            }
-
             await Repository.AddAsync(promptGroup);
         }
 
