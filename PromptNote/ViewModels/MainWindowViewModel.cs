@@ -204,11 +204,7 @@ namespace PromptNote.ViewModels
             await PromptGroupViewModel.LoadGroupsAsyncCommand.ExecuteAsync();
             PromptGroupViewModel.SelectedItem = PromptGroupViewModel.PromptGroups[0];
 
-            // リストを初期化
-            PromptsViewModel.SetItems(new ObservableCollection<Prompt>());
-
-            var ll = await PromptsViewModel.PromptService.LoadPromptsByGroupId(0);
-            PromptsViewModel.SetItems(new ObservableCollection<Prompt>(ll));
+            await UpdatePromptsCommand.ExecuteAsync();
         }
     }
 }
