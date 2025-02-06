@@ -91,7 +91,7 @@ namespace PromptNote.ViewModels
         /// PromptsViewModel.Prompts をアップデートします。<br/>
         /// このコマンドはプロンプトグループのリストのセレクションが変更された時(イベントトリガー)に実行します。
         /// </summary>
-        public AsyncDelegateCommand UpdatePromptsCommand => new (async () =>
+        public AsyncDelegateCommand UpdatePromptsAsyncCommand => new (async () =>
         {
             if (PromptGroupViewModel.SelectedItem != null)
             {
@@ -204,7 +204,7 @@ namespace PromptNote.ViewModels
             await PromptGroupViewModel.LoadGroupsAsyncCommand.ExecuteAsync();
             PromptGroupViewModel.SelectedItem = PromptGroupViewModel.PromptGroups[0];
 
-            await UpdatePromptsCommand.ExecuteAsync();
+            await UpdatePromptsAsyncCommand.ExecuteAsync();
         }
     }
 }
