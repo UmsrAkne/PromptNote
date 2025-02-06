@@ -37,7 +37,7 @@ namespace PromptNote.Models.Dbs
         public async Task<IEnumerable<Prompt>> LoadPromptsByGroupId(int groupId)
         {
             var all = await Repository.GetAllAsync();
-            var filtering = all.Where(p => p.GroupId == groupId);
+            var filtering = all.Where(p => p.GroupId == groupId).OrderBy(p => p.LineNumber);
             return filtering;
         }
     }
