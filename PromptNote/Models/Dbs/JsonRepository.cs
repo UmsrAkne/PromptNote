@@ -87,19 +87,19 @@ namespace PromptNote.Models.Dbs
                 return;
             }
 
+            await semaphoreSlim.WaitAsync();
+
             var noIds = list.Where(e => e.Id == 0);
-            var maxId = list.Max(e => e.Id);
+            var data = await LoadDataAsync();
+            var maxId = data.Max(e => e.Id);
 
             foreach (var noId in noIds)
             {
                 noId.Id = ++maxId;
             }
 
-            await semaphoreSlim.WaitAsync();
-
             try
             {
-                var data = await LoadDataAsync();
                 var dic = data.ToDictionary(e => e.Id, e => e);
 
                 foreach (var entity in list)

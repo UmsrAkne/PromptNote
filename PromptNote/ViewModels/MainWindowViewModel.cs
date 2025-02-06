@@ -91,11 +91,12 @@ namespace PromptNote.ViewModels
         /// PromptsViewModel.Prompts をアップデートします。<br/>
         /// このコマンドはプロンプトグループのリストのセレクションが変更された時(イベントトリガー)に実行します。
         /// </summary>
-        public DelegateCommand UpdatePromptsCommand => new DelegateCommand(() =>
+        public AsyncDelegateCommand UpdatePromptsAsyncCommand => new (async () =>
         {
             if (PromptGroupViewModel.SelectedItem != null)
             {
-                PromptsViewModel.SetItems(new ObservableCollection<Prompt>(PromptGroupViewModel.SelectedItem.Prompts));
+                var list = await PromptsViewModel.PromptService.LoadPromptsByGroupId(PromptGroupViewModel.SelectedItem.Id);
+                PromptsViewModel.SetItems(new ObservableCollection<Prompt>(list));
             }
         });
 
@@ -203,11 +204,7 @@ namespace PromptNote.ViewModels
             await PromptGroupViewModel.LoadGroupsAsyncCommand.ExecuteAsync();
             PromptGroupViewModel.SelectedItem = PromptGroupViewModel.PromptGroups[0];
 
-            // リストを初期化
-            PromptsViewModel.SetItems(new ObservableCollection<Prompt>());
-
-            var ll = await PromptsViewModel.PromptService.LoadPromptsByGroupId(0);
-            PromptsViewModel.SetItems(new ObservableCollection<Prompt>(ll));
+            await UpdatePromptsAsyncCommand.ExecuteAsync();
         }
     }
 }

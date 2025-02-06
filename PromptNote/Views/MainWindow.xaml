@@ -74,7 +74,7 @@
                 SelectedItem="{Binding PromptGroupViewModel.SelectedItem}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding UpdatePromptsCommand}" />
+                        <i:InvokeCommandAction Command="{Binding UpdatePromptsAsyncCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <i:Interaction.Behaviors>

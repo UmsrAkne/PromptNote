@@ -80,10 +80,11 @@ namespace PromptNote.ViewModels
         public async Task SetItemsAsync(IEnumerable<Prompt> items)
         {
             var enumerable = items.ToList();
-            await PromptService.AddRangeAsync(enumerable);
             OriginalItems.Clear();
             OriginalItems.AddRange(enumerable);
             ReIndex();
+
+            await PromptService.AddRangeAsync(enumerable);
         }
 
         public async Task AddItemAsync(Prompt item)
